@@ -48,6 +48,32 @@ export default {
   min-width: 250px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 
+  a {
+
+    font-family: "Roboto";
+    letter-spacing: 1px;
+    font-size: 13px;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+
+      transition: 150ms;
+      background: #f5f6fa;
+
+    }
+
+    .item {
+
+      display: flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+  }
+
   .menu-top {
 
     display: flex;
@@ -64,64 +90,12 @@ export default {
       font-size: 25px;
     }
 
-    a {
-
-      font-family: "Roboto";
-      letter-spacing: 1px;
-      font-size: 13px;
-      text-decoration: none;
-      color: black;
-
-      &:hover {
-
-        transition: 150ms;
-        background: #f5f6fa;
-
-      }
-
-      .item {
-
-        display: flex;
-        min-height: 50px;
-        align-items: center;
-        justify-content: center;
-
-      }
-
-    }
-
   }
 
   .menu-bottom {
 
     display: flex;
     flex-direction: column-reverse;
-
-     a {
-
-      font-family: "Roboto";
-      letter-spacing: 1px;
-      font-size: 13px;
-      text-decoration: none;
-      color: black;
-
-      &:hover {
-
-        transition: 150ms;
-        background: #f5f6fa;
-
-      }
-
-      .item {
-
-        display: flex;
-        min-height: 50px;
-        align-items: center;
-        justify-content: center;
-
-      }
-
-    }
 
   }
 
