@@ -5,21 +5,18 @@
         DaBoard
       </div>
       <router-link to="/" exact-active-class="active">
-        <div class="item">Accueil</div>
+        <div class="item">Home</div>
       </router-link>
       <router-link to="/news" exact-active-class="active">
         <div class="item">News</div>
       </router-link>
-      <router-link to="/news" exact-active-class="active">
-        <div class="item">Planning</div>
-      </router-link>
-      <router-link to="/transports" exact-active-class="active">
-        <div class="item">Transports</div>
+      <router-link to="/scheduler" exact-active-class="active">
+        <div class="item">Scheduler</div>
       </router-link>
     </div>
     <div class="menu-bottom">
-      <router-link to="/administration" exact-active-class="active">
-        <div class="item">Administration</div>
+      <router-link to="/signin" exact-active-class="active">
+        <div class="item">Signin</div>
       </router-link>
     </div>
     <div class="copyright">
