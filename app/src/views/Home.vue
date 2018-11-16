@@ -9,11 +9,15 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import { setTimeout } from 'timers';
 
 export default {
   name: 'home',
   components: {
     Navbar
+  },
+  created () {
+    //setTimeout(() => this.$router.push({ path: '/news' }), 5000)
   }
 }
 </script>
