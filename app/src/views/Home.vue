@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="content">
     <Navbar/>
-    <div class="content container-fluid">
+    <div class="frame">
 
     </div>
   </div>
@@ -19,5 +19,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
 
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+
+  .frame {
+    
+    flex-grow: 1;
+
+  }
+
+}
 </style>

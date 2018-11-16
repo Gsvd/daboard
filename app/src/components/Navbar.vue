@@ -1,23 +1,31 @@
 <template>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">DaBoard</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <router-link class="nav-item" tag="li" to="/" exact-active-class="active">
-          <a class="nav-link">Accueil</a>
-        </router-link>
-        <router-link class="nav-item" tag="li" to="/news" exact-active-class="active">
-          <a class="nav-link">News</a>
-        </router-link>
-        <router-link class="nav-item" tag="li" to="/news" exact-active-class="active">
-          <a class="nav-link">Transports</a>
-        </router-link>
-        <router-link class="nav-item" tag="li" to="/news" exact-active-class="active">
-          <a class="nav-link">Planning</a>
-        </router-link>
-      </ul>
+  <div class="sidebar">
+    <div class="menu-top">
+      <div class="brand">
+        DaBoard
+      </div>
+      <router-link to="/" exact-active-class="active">
+        <div class="item">Accueil</div>
+      </router-link>
+      <router-link to="/news" exact-active-class="active">
+        <div class="item">News</div>
+      </router-link>
+      <router-link to="/news" exact-active-class="active">
+        <div class="item">Planning</div>
+      </router-link>
+      <router-link to="/transports" exact-active-class="active">
+        <div class="item">Transports</div>
+      </router-link>
     </div>
-  </nav>
+    <div class="menu-bottom">
+      <router-link to="/administration" exact-active-class="active">
+        <div class="item">Administration</div>
+      </router-link>
+    </div>
+    <div class="copyright">
+      Made with <img src="../assets/images/heart.svg" class="icon"> in Nice, France <img src="../assets/images/sun.svg" class="icon">
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,7 +35,111 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar {
-  height: 6vh;
+.active {
+
+  background: #f5f6fa;
+
+}
+
+.sidebar {
+
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+
+  .menu-top {
+
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+
+    .brand {
+      display: flex;
+      min-height: 100px;
+      align-items: center;
+      justify-content: center;
+      font-family: "Roboto-Bold";
+      letter-spacing: 1px;
+      font-size: 25px;
+    }
+
+    a {
+
+      font-family: "Roboto";
+      letter-spacing: 1px;
+      font-size: 13px;
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+
+        transition: 150ms;
+        background: #f5f6fa;
+
+      }
+
+      .item {
+
+        display: flex;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+
+      }
+
+    }
+
+  }
+
+  .menu-bottom {
+
+    display: flex;
+    flex-direction: column-reverse;
+
+     a {
+
+      font-family: "Roboto";
+      letter-spacing: 1px;
+      font-size: 13px;
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+
+        transition: 150ms;
+        background: #f5f6fa;
+
+      }
+
+      .item {
+
+        display: flex;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+
+      }
+
+    }
+
+  }
+
+  .copyright {
+
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto-Light";
+    font-size: 10px;
+
+    .icon {
+      width: 10px;
+      margin: 0 2px 0 2px;
+    }
+
+  }
+
 }
 </style>
