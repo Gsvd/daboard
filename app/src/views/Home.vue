@@ -16,7 +16,7 @@ export default {
   components: {
     Navbar
   },
-  created () {
+  mounted () {
     //setTimeout(() => this.$router.push({ path: '/news' }), 5000)
   }
 }
