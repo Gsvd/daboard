@@ -2,7 +2,7 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-
+      
     </div>
   </div>
 </template>

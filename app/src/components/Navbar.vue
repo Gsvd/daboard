@@ -15,8 +15,11 @@
       </router-link>
     </div>
     <div class="menu-bottom">
-      <router-link to="/signin" exact-active-class="active">
-        <div class="item">Signin</div>
+      <router-link v-if="!this.$store.state.logged" to="/admin" exact-active-class="active">
+        <div class="item">Sign in</div>
+      </router-link>
+      <router-link v-else to="/admin" exact-active-class="active">
+        <div class="item">Admin</div>
       </router-link>
     </div>
     <div class="copyright">
