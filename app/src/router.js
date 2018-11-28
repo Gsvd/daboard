@@ -7,13 +7,17 @@ import Admin from './views/Admin.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
+      component: Home
+    },
+    {
+      path: '/start',
       component: Home
     },
     {
@@ -33,3 +37,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

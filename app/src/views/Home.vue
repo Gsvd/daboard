@@ -9,7 +9,6 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import { setTimeout } from 'timers';
 
 export default {
   name: 'home',
@@ -17,7 +16,10 @@ export default {
     Navbar
   },
   mounted () {
-    //setTimeout(() => this.$router.push({ path: '/news' }), 5000)
+    if (this.$route.path === '/start') {
+      this.$store.commit('toggleRotation', true)
+      this.$router.push({ path: '/' })
+    }
   }
 }
 </script>
@@ -32,6 +34,8 @@ export default {
   .frame {
     
     flex-grow: 1;
+    padding: 15px;
+    background: rgb(253, 253, 253);
 
   }
 

@@ -15,10 +15,10 @@
       </router-link>
     </div>
     <div class="menu-bottom">
-      <router-link v-if="!this.$store.state.logged" to="/admin" exact-active-class="active">
+      <router-link v-if="!this.$store.state.logged && !this.$store.state.rotation" to="/admin" exact-active-class="active">
         <div class="item">Sign in</div>
       </router-link>
-      <router-link v-else to="/admin" exact-active-class="active">
+      <router-link v-else-if="this.$store.state.logged && !this.$store.state.rotation" to="/admin" exact-active-class="active">
         <div class="item">Admin</div>
       </router-link>
     </div>
@@ -44,6 +44,7 @@ export default {
 .sidebar {
 
   display: flex;
+  z-index: 100;
   flex-direction: column;
   min-width: 250px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);

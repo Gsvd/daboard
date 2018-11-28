@@ -5,10 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    logged: false
+    logged: false,
+    rotation: false,
+    timeRotation: 2000,
   },
   mutations: {
-
+    toggleRotation (state, status) {
+      state.rotation = status
+    }
   },
   actions: {
 

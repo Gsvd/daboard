@@ -28,6 +28,8 @@ export default {
   .frame {
     
     flex-grow: 1;
+    padding: 15px;
+    background: rgb(253, 253, 253);
 
   }
 
