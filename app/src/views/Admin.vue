@@ -2,21 +2,21 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-      <div class="signin">
+      <div class="signin" v-if="!this.$store.state.logged">
         <div class="title">
           Signin
         </div>
         <div class="blockcontent">
-          <form action="" method="POST" @submit.prevent="submit()">
+          <form action="" method="POST" @submit.prevent="submit">
             <div class="six columns form-group">
-              <label for="usernameInput" :class="{ 'text-danger': errors.has('username') }">Username</label>
-              <input class="u-full-width inputform" :class="{ 'has-error': errors.has('username') }" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
-              <p class="text-danger">{{ errors.get('username') }}</p>
+              <label for="usernameInput" :class="{ 'text-danger': false }">Username</label>
+              <input class="u-full-width inputform" :class="{ 'has-error': false }" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
+              <p class="text-danger">{{ '' }}</p>
             </div>
             <div class="six columns">
-              <label for="passwordInput" :class="{ 'text-danger': errors.has('password') }">Password</label>
-              <input class="u-full-width inputform" :class="{ 'has-error': errors.has('password') }" type="password" placeholder="*****" id="passwordInput" v-model="password">
-              <p class="text-danger">{{ errors.get('password') }}</p>
+              <label for="passwordInput" :class="{ 'text-danger': false }">Password</label>
+              <input class="u-full-width inputform" :class="{ 'has-error': false }" type="password" placeholder="*****" id="passwordInput" v-model="password">
+              <p class="text-danger">{{ '' }}</p>
             </div>
             <div class="twelve colmumns">
               <input class="button-primary inputform" type="submit" value="Submit">
@@ -30,6 +30,7 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import AdminService from '@/services/AdminService'
 
 export default {
   name: 'admin',
@@ -46,8 +47,8 @@ export default {
     }
   }),
   methods: {
-    submit () {
-      
+    async submit () {
+      const response = await AdminService.signin({ username: this.username, password: this.password })
     }
   }
 }

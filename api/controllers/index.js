@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 router.use(function (req, res, next) {
-  if (req.body.token === 'development') {
+  if (req.body.token === 'j"Vc8]/@!-(U8W#') {
     next()
   } else {
     res.status(403).send('Forbidden')
@@ -10,6 +10,7 @@ router.use(function (req, res, next) {
 })
 
 router.use('/news', require('./news'))
+router.use('/admin', require('./admin'))
 
 router.get('/', (req, res) => {
   res.send('It Works!')
