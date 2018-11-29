@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .content {
 
   display: flex;
@@ -36,6 +36,19 @@ export default {
     flex-grow: 1;
     padding: 15px;
     background: rgb(253, 253, 253);
+    overflow-y: auto;
+
+    .has-error {
+
+      border-color: red;
+
+    }
+
+    .text-danger {
+
+      color: red;
+
+    }
 
   }
 

@@ -2,7 +2,7 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-      <div class="newsblock">
+      <div class="newsblock" v-for="n in 40" v-bind:key="n">
         <div class="header">
           <div class="row">
             <div class="six columns title">
@@ -36,67 +36,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
+.newsblock + .newsblock {
 
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
+  margin-top: 25px;
 
-  .frame {
-    
-    flex-grow: 1;
-    padding: 15px;
-    background: rgb(253, 253, 253);
+}
 
-    .newsblock {
+.newsblock {
 
-      display: block;
-      background: white;
-      border-radius: 4px;
-      border: 1px #ecf0f1 solid;
-      padding: 15px;
-      max-width: 720px;
-      margin: auto;
+  display: block;
+  background: white;
+  border-radius: 5px;
+  border: 1px #ecf0f1 solid;
+  padding: 15px;
+  max-width: 720px;
+  margin: auto;
 
-      .header {
+  .header {
 
-        border-bottom: 2px #ecf0f1 solid;
+    border-bottom: 2px #ecf0f1 solid;
 
-        .title {
+    .title {
 
-          font-family: 'Roboto';
-          font-size: 25px;
+      font-family: 'Roboto';
+      font-size: 25px;
 
-        }
+    }
 
-        .category {
+    .category {
 
-          font-family: 'Roboto-Thin';
-          font-size: 25px;
-          text-align: right;
+      font-family: 'Roboto-Thin';
+      font-size: 25px;
+      text-align: right;
 
-        }
-
-      }
-
-      .text {
-
-        padding: 15px 0 15px 0;
-        font-family: 'Roboto';
-
-      }
-
-      .date {
-
-        font-family: 'Roboto-Thin';
-        font-size: 12px;
-        text-align: right;
-
-      }
-      
     }
 
   }
 
+  .text {
+
+    padding: 15px 0 15px 0;
+    font-family: 'Roboto';
+
+  }
+
+  .date {
+
+    font-family: 'Roboto-Thin';
+    font-size: 12px;
+    text-align: right;
+
+  }
+  
 }
 </style>

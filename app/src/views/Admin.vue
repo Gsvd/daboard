@@ -2,7 +2,28 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-      
+      <div class="signin">
+        <div class="title">
+          Signin
+        </div>
+        <div class="blockcontent">
+          <form action="" method="POST" @submit.prevent="submit()">
+            <div class="six columns form-group">
+              <label for="usernameInput" :class="{ 'text-danger': errors.has('username') }">Username</label>
+              <input class="u-full-width inputform" :class="{ 'has-error': errors.has('username') }" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
+              <p class="text-danger">{{ errors.get('username') }}</p>
+            </div>
+            <div class="six columns">
+              <label for="passwordInput" :class="{ 'text-danger': errors.has('password') }">Password</label>
+              <input class="u-full-width inputform" :class="{ 'has-error': errors.has('password') }" type="password" placeholder="*****" id="passwordInput" v-model="password">
+              <p class="text-danger">{{ errors.get('password') }}</p>
+            </div>
+            <div class="twelve colmumns">
+              <input class="button-primary inputform" type="submit" value="Submit">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -14,22 +35,73 @@ export default {
   name: 'admin',
   components: {
     Navbar
+  },
+  data: () => ({
+    username: '',
+    password: '',
+    atLeastOneError: false,
+    errors: {
+      'username': '',
+      'password': ''
+    }
+  }),
+  methods: {
+    submit () {
+      
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content {
+.frame {
 
   display: flex;
-  flex-direction: row;
-  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  .frame {
-    
-    flex-grow: 1;
-    padding: 15px;
-    background: rgb(253, 253, 253);
+  .signin {
+
+    display: flex;
+    min-height: 50vh;
+    background: white;
+    min-width: 480px;
+    border: 1px #ecf0f1 solid;
+    border-radius: 5px;
+    flex-direction: column;
+
+    .title {
+
+      font-size: 30px;
+      text-align: center;
+      border-bottom: 2px #ecf0f1 solid;
+
+    }
+
+    .blockcontent {
+
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+
+      form {
+
+        display: block;
+        flex-grow: 1;
+
+        .inputform {
+
+          width: 100%;
+
+        }
+
+      }
+
+    }
 
   }
 
