@@ -6,7 +6,9 @@ const sha512 = require('js-sha512')
 export default {
   signin ({ username, password }) {
     return Api().post('/admin/signin', {
-      token,
+      headers: {
+        "Authorization": `basic ${ token }`
+      },
       username,
       password: sha512(password)
     })

@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const { getUserByUsernameAndPassword } = require('../utils.js')
+const { getUserByUsernameAndPassword, success, failure } = require('../utils.js')
 
 router.post('/signin', async (req, res) => {
   const username = req.body.username
   const password = req.body.password
   const dbResult = await getUserByUsernameAndPassword(username, password)
   if (dbResult !== undefined && dbResult.length > 0) {
-    console.log('USER FOUND!')
+    res.send(success())
   } else {
-    console.log('USER NOT FOUND!')
+    res.send(failure())
   }
 })
 

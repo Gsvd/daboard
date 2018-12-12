@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 router.use(function (req, res, next) {
-  if (req.body.token === 'j"Vc8]/@!-(U8W#') {
+  if (req.headers.authorization === 'basic j"Vc8]/@!-(U8W#') {
     next()
   } else {
     res.status(403).send('Forbidden')

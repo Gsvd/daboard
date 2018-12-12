@@ -2,22 +2,22 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-      <div class="newsblock" v-for="n in 40" v-bind:key="n">
+      <div class="newsblock" v-for="(post, index) in posts" v-bind:key="index">
         <div class="header">
           <div class="row">
             <div class="six columns title">
-              News title
+              {{ post.title }}
             </div>
             <div class="six columns category">
-              SIS
+              {{ post.category }}
             </div>
           </div>
         </div>
         <div class="text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean volutpat porta sodales. Etiam euismod, tortor id molestie auctor, enim elit viverra purus, vitae mattis erat ante ac mauris. Curabitur euismod enim sed turpis commodo sodales. Curabitur interdum est a feugiat molestie. Vestibulum molestie dignissim mauris, a tristique sem luctus in.
+          {{ post.content }}
         </div>
         <div class="date">
-          2018-11-27 3:17pm
+          {{ post.creation }}
         </div>
       </div>
     </div>
@@ -26,11 +26,25 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import NewsService from '@/services/NewsService'
 
 export default {
   name: 'news',
   components: {
     Navbar
+  },
+  data: () => ({
+    posts: []
+  }),
+  mounted () {
+    this.getPosts()
+  },
+  methods: {
+    getPosts () {
+      NewsService.getPosts().then((response) => {
+        this.posts = response['data']['information']
+      })
+    }
   }
 }
 </script>
@@ -49,7 +63,7 @@ export default {
   border-radius: 5px;
   border: 1px #ecf0f1 solid;
   padding: 15px;
-  max-width: 720px;
+  max-width: 920px;
   margin: auto;
 
   .header {

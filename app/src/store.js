@@ -8,7 +8,7 @@ export default new Vuex.Store({
     token: 'j"Vc8]/@!-(U8W#',
     logged: false,
     rotation: false,
-    timeRotation: 2000,
+    timeRotation: 5000,
   },
   mutations: {
     toggleRotation (state, status) {

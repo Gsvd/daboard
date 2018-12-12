@@ -10,7 +10,7 @@ function bodyBuilder(success, information, answer) {
     }
 }
 
-function success(answer, information = '') {
+function success(information = '', answer = {}) {
     return bodyBuilder(true, information, answer)
 }
 
@@ -38,9 +38,21 @@ function getUserByUsernameAndPassword(username, password) {
     })
 }
 
+function getPosts() {
+    return new Promise((resolve) => {
+        db.connect(function (error) {
+            const query = 'SELECT * FROM posts ORDER BY id DESC'
+            db.query(query, function (error, result, fields) {
+                resolve(result)
+            })
+        })
+    })
+}
+
 module.exports = {
     bodyBuilder,
     success,
     failure,
-    getUserByUsernameAndPassword
+    getUserByUsernameAndPassword,
+    getPosts
 }
