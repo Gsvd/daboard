@@ -1,4 +1,6 @@
 const mysql = require('mysql')
+const showdown = require('showdown')
+const moment = require('moment')
 
 //REQUEST OBJECTS
 
@@ -18,7 +20,8 @@ function failure(information = '', answer = {}) {
     return bodyBuilder(false, information, answer)
 }
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
+    connectionLimit : 10,
     host: 'localhost',
     user: 'root',
     password: 'root',
@@ -29,22 +32,39 @@ const db = mysql.createConnection({
 
 function getUserByUsernameAndPassword(username, password) {
     return new Promise((resolve) => {
-        db.connect(function (error) {
-            const query = 'SELECT * FROM users WHERE username = "' + username + '" AND password = "' + password + '" LIMIT 1'
-            db.query(query, function (error, result, fields) {
-                resolve(result)
-            })
+        const query = 'SELECT * FROM users WHERE username = "' + username + '" AND password = "' + password + '" LIMIT 1'
+        db.query(query, function (error, result, fields) {
+            resolve(result)
         })
     })
 }
 
 function getPosts() {
     return new Promise((resolve) => {
-        db.connect(function (error) {
-            const query = 'SELECT * FROM posts ORDER BY id DESC'
-            db.query(query, function (error, result, fields) {
-                resolve(result)
-            })
+        const query = 'SELECT * FROM posts ORDER BY id DESC'
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
+function addPost(title, content, category, author) {
+    const converter = new showdown.Converter()
+    return new Promise((resolve) => {
+        let today = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        let newContent = content.replace(/'/g, '&#39;')
+        const query = 'INSERT INTO posts(title, content, html, author, category, creation) VALUES(\'' + title + '\', \'' + newContent + '\', \'' + converter.makeHtml(newContent) + '\', \'' + author + '\', \'' + category + '\', \'' + today + '\')'
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
+function getCategories() {
+    return new Promise((resolve) => {
+        const query = 'SELECT * FROM category ORDER BY id ASC'
+        db.query(query, function (error, result, fields) {
+            resolve(result)
         })
     })
 }
@@ -54,5 +74,7 @@ module.exports = {
     success,
     failure,
     getUserByUsernameAndPassword,
-    getPosts
+    getPosts,
+    addPost,
+    getCategories
 }

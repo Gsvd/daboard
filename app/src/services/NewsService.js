@@ -2,11 +2,23 @@ import Api from '@/services/Api'
 import { token } from '@/security.js'
 
 export default {
-  getPosts () {
+  getAll () {
     return Api().get('/news/list', {
         headers: {
-            Authorization: `basic ${ token }`
-        },
+            authorization: `basic ${ token }`
+        }
+    })
+  },
+  add ({ title, content, category, author }) {
+    return Api().post('/news/add', {
+      title,
+      content,
+      category,
+      author
+    }, {
+      headers: {
+        authorization: `basic ${ token }`
+      }
     })
   }
 }

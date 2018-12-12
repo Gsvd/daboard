@@ -2,21 +2,21 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-      <div class="signin" v-if="!this.$store.state.logged">
+      <div class="signin" v-if="!this.$store.state.logged" :class="{ 'empty': atLeastOneError }">
         <div class="title">
           Signin
         </div>
         <div class="blockcontent">
-          <form action="" method="POST" @submit.prevent="submit">
+          <form action="" method="POST" @submit.prevent="submitSignin">
             <div class="six columns form-group">
-              <label for="usernameInput" :class="{ 'text-danger': false }">Username</label>
-              <input class="u-full-width inputform" :class="{ 'has-error': false }" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
-              <p class="text-danger">{{ '' }}</p>
+              <label for="usernameInput" :class="{ 'text-danger': this.errors.username }">Username</label>
+              <input class="u-full-width inputform" :class="{ 'has-error': this.errors.username }" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
+              <p class="text-danger">{{ this.errors.username }}</p>
             </div>
             <div class="six columns">
-              <label for="passwordInput" :class="{ 'text-danger': false }">Password</label>
-              <input class="u-full-width inputform" :class="{ 'has-error': false }" type="password" placeholder="*****" id="passwordInput" v-model="password">
-              <p class="text-danger">{{ '' }}</p>
+              <label for="passwordInput" :class="{ 'text-danger': this.errors.username }">Password</label>
+              <input class="u-full-width inputform" :class="{ 'has-error': this.errors.username }" type="password" placeholder="*****" id="passwordInput" v-model="password">
+              <p class="text-danger">{{ this.errors.password }}</p>
             </div>
             <div class="twelve colmumns">
               <input class="button-primary inputform" type="submit" value="Submit">
@@ -24,18 +24,21 @@
           </form>
         </div>
       </div>
+      <AdminNews v-else/>
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import AdminNews from '@/components/AdminNews.vue'
 import AdminService from '@/services/AdminService'
 
 export default {
   name: 'admin',
   components: {
-    Navbar
+    Navbar,
+    AdminNews
   },
   data: () => ({
     username: '',
@@ -47,8 +50,18 @@ export default {
     }
   }),
   methods: {
-    async submit () {
+    async submitSignin () {
       const response = await AdminService.signin({ username: this.username, password: this.password })
+      let success = response['data']['success']
+      let answer = response['data']['answer']
+      if (success) {
+        this.$store.state.logged = true
+        this.$store.state.username = answer.username
+      } else {
+        this.errors.username = answer.username
+        this.errors.password = answer.password
+        this.atLeastOneError = true
+      }
     }
   }
 }

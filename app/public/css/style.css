@@ -7,3 +7,11 @@ html, body {
 * {
   color: rgb(40, 40, 40);
 }
+
+.center {
+  text-align: center;
+}
+
+.success {
+  color: #27ae60;
+}

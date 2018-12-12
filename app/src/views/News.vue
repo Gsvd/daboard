@@ -5,19 +5,17 @@
       <div class="newsblock" v-for="(post, index) in posts" v-bind:key="index">
         <div class="header">
           <div class="row">
-            <div class="six columns title">
+            <div class="ten columns title">
               {{ post.title }}
             </div>
-            <div class="six columns category">
+            <div class="two columns category">
               {{ post.category }}
             </div>
           </div>
         </div>
-        <div class="text">
-          {{ post.content }}
-        </div>
+        <div class="text" v-html="post.html"></div>
         <div class="date">
-          {{ post.creation }}
+          by {{ post.author }} at {{ new Date(post.creation).toLocaleString('en-GB') }}
         </div>
       </div>
     </div>
@@ -41,7 +39,7 @@ export default {
   },
   methods: {
     getPosts () {
-      NewsService.getPosts().then((response) => {
+      NewsService.getAll().then((response) => {
         this.posts = response['data']['information']
       })
     }
@@ -96,7 +94,7 @@ export default {
 
   .date {
 
-    font-family: 'Roboto-Thin';
+    font-family: 'Roboto';
     font-size: 12px;
     text-align: right;
 
