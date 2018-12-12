@@ -15,7 +15,7 @@
         </div>
         <div class="text" v-html="post.html"></div>
         <div class="date">
-          by {{ post.author }} at {{ new Date(post.creation).toLocaleString('en-GB') }}
+          by {{ post.author }} at {{ new Date(post.creation).toLocaleString() }}
         </div>
       </div>
     </div>

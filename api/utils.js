@@ -39,7 +39,6 @@ function specialChars(string) {
 function getUserByUsernameAndPassword(username, password) {
     return new Promise((resolve) => {
         const query = `SELECT * FROM users WHERE username = '${ username }' AND password = '${ password }' LIMIT 1`
-        console.log(query)
         db.query(query, function (error, result, fields) {
             resolve(result)
         })

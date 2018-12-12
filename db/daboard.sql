@@ -1,14 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 12, 2018 at 05:25 PM
--- Server version: 5.6.38
+-- Generation Time: Dec 12, 2018 at 09:17 PM
+-- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `daboard`
@@ -17,19 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `value` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table `categories`
 --
 
-INSERT INTO `category` (`id`, `value`) VALUES
+INSERT INTO `categories` (`id`, `value`) VALUES
 (1, 'SIS'),
 (2, 'BDE'),
 (3, 'DEV');
@@ -67,6 +75,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
+  `token` text NOT NULL,
   `rank` tinyint(4) NOT NULL,
   `creation` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -75,18 +84,18 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `rank`, `creation`) VALUES
-(1, 'Supinfo', '8a1b992c1150923faefc65a9acfd3855e2f2eab2c00a44f581d92d98aeabb8eb72158b74380d8e89f9e9f524e1019cbca2ff6dc660607aeb7833b7982f15c3e8', 1, '2018-11-29 15:32:18'),
-(2, 'Gsivade', '30720A1D332B905FDD2097D6033DB5A8AD4E4780EF972EC236DD265A80F34577CD1F9644A5E934B43E6D0118879B2F20B5B0BBAA208C32AC8095886434FA3188', 1, '2018-12-12 13:51:17');
+INSERT INTO `users` (`id`, `username`, `password`, `token`, `rank`, `creation`) VALUES
+(1, 'Supinfo', '8a1b992c1150923faefc65a9acfd3855e2f2eab2c00a44f581d92d98aeabb8eb72158b74380d8e89f9e9f524e1019cbca2ff6dc660607aeb7833b7982f15c3e8', '', 1, '2018-11-29 15:32:18'),
+(2, 'Gsivade', '30720A1D332B905FDD2097D6033DB5A8AD4E4780EF972EC236DD265A80F34577CD1F9644A5E934B43E6D0118879B2F20B5B0BBAA208C32AC8095886434FA3188', '', 1, '2018-12-12 13:51:17');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `category`
+-- Indexes for table `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -106,19 +115,21 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT for table `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
