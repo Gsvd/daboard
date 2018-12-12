@@ -32,6 +32,7 @@
 import Toastify from 'toastify-js'
 import NewsService from '@/services/NewsService'
 import AdminService from '@/services/AdminService'
+import { appenum } from '@/enum.js'
 
 export default {
   name: 'AdminNews',
@@ -57,15 +58,15 @@ export default {
       if (success) {
         this.resetErrors()
         Toastify({
-            text: "Added",
+            text: appenum.ADDED,
             duration: 3000,
-            backgroundColor: "#2ecc71"
+            backgroundColor: appenum.COLOR_SUCCESS
         }).showToast()
       } else {
         Toastify({
-            text: 'Invalid operation',
+            text: appenum.INVALID_OPERATION,
             duration: 3000,
-            backgroundColor: "#e74c3c"
+            backgroundColor: appenum.COLOR_DANGER
         }).showToast()
         this.errors.title = answer.title
         this.errors.content = answer.content

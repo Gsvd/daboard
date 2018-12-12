@@ -49,6 +49,7 @@ import Toastify from 'toastify-js'
 import Navbar from '@/components/Navbar.vue'
 import AdminNews from '@/components/AdminNews.vue'
 import AdminService from '@/services/AdminService'
+import { appenum } from '@/enum.js'
 
 export default {
   name: 'admin',
@@ -75,18 +76,18 @@ export default {
         this.$store.state.logged = true
         this.$store.state.username = answer.username
         Toastify({
-            text: "Logged in",
+            text: appenum.LOGGED_IN,
             duration: 3000,
-            backgroundColor: "#2ecc71"
+            backgroundColor: appenum.COLOR_SUCCESS
         }).showToast()
       } else {
         this.errors.username = answer.username
         this.errors.password = answer.password
         this.atLeastOneError = true
         Toastify({
-            text: 'Invalid operation',
+            text: appenum.INVALID_OPERATION,
             duration: 3000,
-            backgroundColor: "#e74c3c"
+            backgroundColor: appenum.COLOR_DANGER
         }).showToast()
       }
     },
@@ -99,9 +100,9 @@ export default {
       this.$store.state.logged = false
       this.$store.state.username = ''
       Toastify({
-        text: 'Logged out',
+        text: appenum.LOGGED_OUT,
         duration: 3000,
-        backgroundColor: "#F79F1F"
+        backgroundColor: appenum.COLOR_WARNING
       }).showToast()
     }
   }
