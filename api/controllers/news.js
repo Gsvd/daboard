@@ -25,10 +25,6 @@ router.post('/add', async (req, res) => {
       title: 'Title cannot be empty!',
       content: 'Content cannot be empty!'
     }))
-  } else if (!category.length) {
-    res.send(failure(undefined, {
-      category: 'Select a category.'
-    }))
   } else {
     try {
       const response = await addPost(title, content, category, author)

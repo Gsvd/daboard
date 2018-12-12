@@ -28,11 +28,18 @@ const db = mysql.createPool({
     database: 'daboard'
 })
 
+//UTILS FUNCTIONS
+
+function specialChars(string) {
+    return string.replace(/'/g, '&#39;').replace(/"/g, '&quot;')
+}
+
 //DATABASE FUNCTIONS
 
 function getUserByUsernameAndPassword(username, password) {
     return new Promise((resolve) => {
-        const query = 'SELECT * FROM users WHERE username = "' + username + '" AND password = "' + password + '" LIMIT 1'
+        const query = `SELECT * FROM users WHERE username = '${ username }' AND password = '${ password }' LIMIT 1`
+        console.log(query)
         db.query(query, function (error, result, fields) {
             resolve(result)
         })
@@ -52,8 +59,8 @@ function addPost(title, content, category, author) {
     const converter = new showdown.Converter()
     return new Promise((resolve) => {
         let today = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
-        let newContent = content.replace(/'/g, '&#39;')
-        const query = 'INSERT INTO posts(title, content, html, author, category, creation) VALUES(\'' + title + '\', \'' + newContent + '\', \'' + converter.makeHtml(newContent) + '\', \'' + author + '\', \'' + category + '\', \'' + today + '\')'
+        content = specialChars(content)
+        const query = `INSERT INTO posts(title, content, html, author, category, creation) VALUES('${ title }', '${ content }', '${ converter.makeHtml(content) }', '${ author }', '${ category }', '${ today }')`
         db.query(query, function (error, result, fields) {
             resolve(result)
         })
@@ -62,7 +69,7 @@ function addPost(title, content, category, author) {
 
 function getCategories() {
     return new Promise((resolve) => {
-        const query = 'SELECT * FROM category ORDER BY id ASC'
+        const query = 'SELECT * FROM categories ORDER BY id ASC'
         db.query(query, function (error, result, fields) {
             resolve(result)
         })

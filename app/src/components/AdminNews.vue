@@ -5,36 +5,31 @@
     </div>
     <div class="blockcontent">
         <form action="" method="POST" @submit.prevent="submitNews">
-        <div class="ten columns form-group">
-            <label for="titleInput" :class="{ 'text-danger': this.errors.title }">Title</label>
-            <input class="u-full-width inputform" :class="{ 'has-error': this.errors.title }" type="text" placeholder="This is the news title" id="titleInput" v-model="title">
-            <p class="text-danger">{{ this.errors.title }}</p>
-        </div>
-        <div class="two columns form-group">
-            <label for="categoryInput" :class="{ 'text-danger': this.errors.category }">Category</label>
-            <select class="u-full-width" id="categoryInput" v-model="category" :class="{ 'has-error': this.errors.category }">
-                <option disabled value="">Choose</option>
-                <option v-for="(category, index) in categories" v-bind:key="index" v-bind:value="category.value">{{ category.value }}</option>
-            </select>
-            <p class="text-danger">{{ this.errors.category }}</p>
-        </div>
-        <div class="twelve columns form-group">
-            <label for="contentInput" :class="{ 'text-danger': this.errors.content }">Content</label>
-            <textarea class="u-full-width inputform" :class="{ 'has-error': this.errors.content }" placeholder="This is the news content..." id="contentInput" v-model="content" ></textarea>
-            <p class="text-danger">{{ this.errors.content }}</p>
-        </div>
-        <div class="twelve colmumns">
-            <input class="button-primary inputform" type="submit" value="Submit">
-        </div>
-        <div class="twelve columns center success" v-if="successAdd">
-            News successfully added!
-        </div>
+            <div class="ten columns form-group">
+                <label for="titleInput" :class="{ 'text-danger': this.errors.title }">Title</label>
+                <input class="u-full-width inputform" :class="{ 'has-error': this.errors.title }" type="text" placeholder="Mars attacks!" id="titleInput" v-model="title">
+            </div>
+            <div class="two columns form-group">
+                <label for="categoryInput">Category</label>
+                <select class="u-full-width" id="categoryInput" v-model="category">
+                    <option disabled value="">Select</option>
+                    <option v-for="(category, index) in categories" v-bind:key="index" v-bind:value="category.value">{{ category.value }}</option>
+                </select>
+            </div>
+            <div class="twelve columns form-group">
+                <label for="contentInput" :class="{ 'text-danger': this.errors.content }">Content</label>
+                <textarea class="u-full-width inputform" :class="{ 'has-error': this.errors.content }" placeholder="# You can *write* markdown here" id="contentInput" v-model="content" ></textarea>
+            </div>
+            <div class="twelve colmumns">
+                <input class="button-primary inputform" type="submit" value="Submit">
+            </div>
         </form>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import NewsService from '@/services/NewsService'
 import AdminService from '@/services/AdminService'
 
@@ -47,8 +42,7 @@ export default {
     successAdd: false,
     errors: {
       'title': '',
-      'content': '',
-      'category': ''
+      'content': ''
     },
     categories: []
   }),
@@ -61,9 +55,18 @@ export default {
       let success = response['data']['success']
       let answer = response['data']['answer']
       if (success) {
-        this.successAdd = success
         this.resetErrors()
+        Toastify({
+            text: "Added",
+            duration: 3000,
+            backgroundColor: "#2ecc71"
+        }).showToast()
       } else {
+        Toastify({
+            text: 'Invalid operation',
+            duration: 3000,
+            backgroundColor: "#e74c3c"
+        }).showToast()
         this.errors.title = answer.title
         this.errors.content = answer.content
         this.atLeastOneError = true
@@ -77,8 +80,7 @@ export default {
     resetErrors () {
         this.errors = {
             'title': '',
-            'content': '',
-            'category': ''
+            'content': ''
         }
     }
   }
