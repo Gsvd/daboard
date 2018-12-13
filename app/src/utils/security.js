@@ -1,6 +1,6 @@
 import AdminService from '@/services/AdminService'
 
-export const apiToken = 'j"Vc8]/@!-(U8W#'
+export const apiToken = '@4hwwu_MX99=GB2e^WkzttG9TR37-JLF$d=6A5xq%q%+4ny4bsuG4t$PbXvhuH*D'
 
 export async function login(username, password) {
   const response = await AdminService.login({ username: username, password: password })

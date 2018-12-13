@@ -5,7 +5,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: 'j"Vc8]/@!-(U8W#',
     logged: false,
     rotation: false,
     timeRotation: 5000,

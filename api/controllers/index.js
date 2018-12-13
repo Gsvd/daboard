@@ -1,8 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-router.use(function (req, res, next) {
-  if (req.headers.authorization === 'basic j"Vc8]/@!-(U8W#') {
+const { getTokenAPIForAddress } = require('../utils.js')
+
+router.use(async (req, res, next) => {
+  const address = req.ip
+  const token = req.headers.authorization.split(' ')[1]
+  const response = await getTokenAPIForAddress(address, token)
+  if (token === response[0].token) {
     next()
   } else {
     res.status(403).send('Forbidden')

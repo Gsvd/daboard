@@ -132,6 +132,15 @@ function getCategories() {
     })
 }
 
+function getTokenAPIForAddress(address, token) {
+    return new Promise((resolve) => {
+        const query = `SELECT * FROM auth WHERE token = '${ token }' AND addressV4 = '${ address }' OR addressV6 = '${ address }' LIMIT 1`
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
 module.exports = {
     bodyBuilder,
     success,
@@ -145,5 +154,6 @@ module.exports = {
     deletePost,
     updatePost,
     getPost,
-    getCategories
+    getCategories,
+    getTokenAPIForAddress
 }
