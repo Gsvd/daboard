@@ -8,8 +8,22 @@ export async function login(username, password) {
   let answer = response['data']['answer']
   if (success) {
     localStorage.setItem('username', answer.username)
+    localStorage.setItem('id', answer.id)
     localStorage.setItem('token', answer.token)
-    console.log(localStorage.getItem('token'))
+    return true
+  } else {
+    return false
+  }
+}
+
+export async function connectByToken(id, token) {
+  const response = await AdminService.isLogged({ id, token })
+  let success = response['data']['success']
+  if (success) {
+    let answer = response['data']['answer']
+    localStorage.setItem('username', answer.username)
+    localStorage.setItem('id', answer.id)
+    localStorage.setItem('token', answer.token)
     return true
   } else {
     return false
@@ -18,5 +32,6 @@ export async function login(username, password) {
 
 export function logout() {
   localStorage.removeItem('username')
+  localStorage.removeItem('id')
   localStorage.removeItem('token')
 }

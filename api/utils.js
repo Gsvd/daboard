@@ -44,18 +44,18 @@ function tokenGenerator() {
 
 //DATABASE FUNCTIONS
 
-function setTokenForUsername(username, token) {
+function setTokenForUserID(id, token) {
     return new Promise((resolve) => {
-        const query = `UPDATE users SET token = ${ token } WHERE username = '${ username }' LIMIT 1`
+        const query = `UPDATE users SET token = ${ token } WHERE id = '${ id }' LIMIT 1`
         db.query(query, function (error, result, fields) {
             resolve(result)
         })
     })
 }
 
-function getTokenForUsername(username) {
+function getTokenForUserID(id) {
     return new Promise((resolve) => {
-        const query = `SELECT token FROM users WHERE username = '${ username }'`
+        const query = `SELECT id, username, token FROM users WHERE id = '${ id }'`
         db.query(query, function (error, result, fields) {
             resolve(result)
         })
@@ -138,8 +138,8 @@ module.exports = {
     failure,
     tokenGenerator,
     getUserByUsernameAndPassword,
-    setTokenForUsername,
-    getTokenForUsername,
+    setTokenForUserID,
+    getTokenForUserID,
     getPosts,
     addPost,
     deletePost,

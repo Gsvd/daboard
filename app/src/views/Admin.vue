@@ -56,7 +56,7 @@
 import Navbar from '@/components/Navbar.vue'
 import AdminNews from '@/components/AdminNews.vue'
 import AdminService from '@/services/AdminService'
-import { login } from '@/utils/security.js'
+import { login, logout } from '@/utils/security.js'
 import { appenum } from '@/utils/enum.js'
 import { showToast } from '@/utils/utils.js'
 
@@ -92,6 +92,7 @@ export default {
     logout () {
       this.$store.state.logged = false
       this.$store.state.username = undefined
+      logout()
       showToast(appenum.LOGGED_OUT, appenum.COLOR_SUCCESS)
     },
     getRouteAdminView () {
