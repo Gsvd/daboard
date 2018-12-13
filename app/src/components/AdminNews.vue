@@ -7,8 +7,8 @@
         <div class="twelve columns blockcontent">
             <form action="" method="POST" @submit.prevent="submitNews">
                 <div class="ten columns form-group">
-                    <label for="titleInput" :class="{ 'text-danger': this.errors.title }">Title</label>
-                    <input class="u-full-width inputform" :class="{ 'has-error': this.errors.title }" type="text" placeholder="Mars attacks!" id="titleInput" v-model="title">
+                    <label for="titleInput">Title</label>
+                    <input class="u-full-width inputform" type="text" placeholder="Mars attacks!" id="titleInput" v-model="title">
                 </div>
                 <div class="two columns form-group">
                     <label for="categoryInput">Category</label>
@@ -18,16 +18,16 @@
                     </select>
                 </div>
                 <div class="twelve columns form-group">
-                    <label for="contentInput" :class="{ 'text-danger': this.errors.content }">Content</label>
-                    <textarea class="u-full-width inputform" :class="{ 'has-error': this.errors.content }" placeholder="# You can *write* markdown here" id="contentInput" v-model="content" ></textarea>
+                    <label for="contentInput">Content</label>
+                    <textarea class="u-full-width inputform" placeholder="# You can *write* markdown here" id="contentInput" v-model="content" ></textarea>
                 </div>
                 <div class="twelve colmumns">
-                    <input type="hidden" v-model="updateID">
+                    <input type="hidden" v-model="editid">
                     <div class="row">
-                        <div class="six columns" v-if="!!updateID">
+                        <div class="six columns" v-if="!!editid">
                             <button type="button" class="inputform" @click="clear()">Cancel</button>
                         </div>
-                        <div class="columns" v-bind:class="{ 'six': !!updateID, 'twelve': !updateID }">
+                        <div class="columns" v-bind:class="{ 'six': !!editid, 'twelve': !editid }">
                             <input class="button-primary inputform" type="submit" value="Submit">
                         </div>
                     </div>
@@ -51,22 +51,17 @@ import Toastify from 'toastify-js'
 import swal from 'sweetalert'
 import AdminService from '@/services/AdminService'
 import NewsService from '@/services/NewsService'
-import { appenum } from '@/enum.js'
-import { showToast } from '@/security.js'
+import { appenum } from '@/utils/enum.js'
+import { showToast } from '@/utils/utils.js'
 
 export default {
   name: 'AdminNews',
   data: () => ({
-    title: '',
-    content: '',
-    updateID: '',
+    title: appenum.EMPTY,
+    content: appenum.EMPTY,
+    editid: appenum.EMPTY,
     category: 'SIS',
-    successAdd: false,
     posts: [],
-    errors: {
-      'title': '',
-      'content': ''
-    },
     categories: []
   }),
   mounted () {
@@ -76,18 +71,14 @@ export default {
   methods: {
     async submitNews () {
         //UDPATE
-        if (this.updateID !== undefined && this.updateID !== '') {
-            const response = await NewsService.update({ id: this.updateID, title: this.title, content: this.content, category: this.category, author: this.$store.state.username })
+        if (this.editid !== undefined && this.editid !== appenum.EMPTY) {
+            const response = await NewsService.update({ id: this.editid, title: this.title, content: this.content, category: this.category, author: this.$store.state.username })
             let success = response['data']['success']
             if (success) {
-                this.resetErrors()
                 showToast(appenum.UPDATED, appenum.COLOR_SUCCESS)
                 this.getPosts()
             } else {
                 showToast(appenum.INVALID_OPERATION, appenum.COLOR_DANGER)
-                this.errors.title = answer.title
-                this.errors.content = answer.content
-                this.atLeastOneError = true
             }
         }
         //INSERT
@@ -96,14 +87,10 @@ export default {
             let success = response['data']['success']
             let answer = response['data']['answer']
             if (success) {
-                this.resetErrors()
                 showToast(appenum.ADDED, appenum.COLOR_SUCCESS)
                 this.getPosts()
             } else {
                 showToast(appenum.INVALID_OPERATION, appenum.COLOR_DANGER)
-                this.errors.title = answer.title
-                this.errors.content = answer.content
-                this.atLeastOneError = true
             }
         }
     },
@@ -112,33 +99,26 @@ export default {
             this.categories = response['data']['answer'].categories
         })
     },
-    resetErrors () {
-        this.errors = {
-            'title': '',
-            'content': ''
-        }
-    },
     getPosts () {
       NewsService.getAll().then((response) => {
         this.posts = response['data']['answer']
       })
     },
     clear () {
-        showToast(appenum.CANCELED, appenum.COLOR_WARNING)
-        this.title = ''
+        this.title = appenum.EMPTY
         this.category = 'SIS'
-        this.content = ''
-        this.updateID = ''
+        this.content = appenum.EMPTY
+        this.editid = appenum.EMPTY
+        showToast(appenum.CANCELED, appenum.COLOR_WARNING)
     },
     async managePost (id) {
         swal({
             text: 'Select a functionnality',
-            icon: "warning",
             buttons: {
                 cancel: 'Cancel',
-                update: {
-                    text: 'Update',
-                    value: 'update'
+                edit: {
+                    text: 'Edit',
+                    value: 'edit'
                 },
                 delete: {
                     text: 'Delete',
@@ -146,7 +126,7 @@ export default {
                 },
             },
         }).then(async (value) => {
-            if (value === 'update') {
+            if (value === 'edit') {
                 const response = await NewsService.get({ id: id })
                 let success = response['data']['success']
                 let answer = response['data']['answer'][0]
@@ -155,7 +135,7 @@ export default {
                     this.title = answer.title
                     this.category = answer.category
                     this.content = answer.content.replace(/&#39;/g, '\'').replace(/&quot;/g, '"')
-                    this.updateID = answer.id
+                    this.editid = answer.id
                 } else {
                     showToast(appenum.INVALID_OPERATION, appenum.COLOR_DANGER)
                 }

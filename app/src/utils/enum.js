@@ -6,6 +6,7 @@ export const appenum = {
   UPDATED: 'Updated',
   CANCELED: 'Canceled',
   INVALID_OPERATION: 'Invalid operation',
+  INVALID_COMBINATION: 'Invalid combination',
   LOGGED_IN: 'Logged in',
   LOGGED_OUT: 'Logged out',
   ACCESS_DENIED: 'Access denied',
@@ -13,5 +14,8 @@ export const appenum = {
   //COLORS
   COLOR_SUCCESS: '#2ecc71',
   COLOR_DANGER: '#e74c3c',
-  COLOR_WARNING: '#F79F1F'
+  COLOR_WARNING: '#F79F1F',
+
+  //UTILS
+  EMPTY: ''
 }

@@ -2,19 +2,19 @@
   <div class="content" v-if="display">
     <Navbar/>
     <div class="frame">
-      <div class="signin" v-if="!this.$store.state.logged" :class="{ 'empty': atLeastOneError }">
+      <div class="signin" v-if="!this.$store.state.logged">
         <div class="title">
           Signin
         </div>
         <div class="blockcontent">
-          <form action="" method="POST" @submit.prevent="submitSignin">
+          <form action="" method="POST" @submit.prevent="login">
             <div class="six columns form-group">
-              <label for="usernameInput" :class="{ 'text-danger': this.errors.username }">Username</label>
-              <input class="u-full-width inputform" :class="{ 'has-error': this.errors.username }" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
+              <label for="usernameInput">Username</label>
+              <input class="u-full-width inputform" type="text" placeholder="Xx-Sram-xX" id="usernameInput" v-model="username">
             </div>
             <div class="six columns">
-              <label for="passwordInput" :class="{ 'text-danger': this.errors.username }">Password</label>
-              <input class="u-full-width inputform" :class="{ 'has-error': this.errors.username }" type="password" placeholder="*****" id="passwordInput" v-model="password">
+              <label for="passwordInput">Password</label>
+              <input class="u-full-width inputform" type="password" placeholder="*****" id="passwordInput" v-model="password">
             </div>
             <div class="twelve colmumns">
               <input class="button-primary inputform" type="submit" value="Submit">
@@ -56,8 +56,9 @@
 import Navbar from '@/components/Navbar.vue'
 import AdminNews from '@/components/AdminNews.vue'
 import AdminService from '@/services/AdminService'
-import { appenum } from '@/enum.js'
-import { showToast } from '@/security.js'
+import { login } from '@/utils/security.js'
+import { appenum } from '@/utils/enum.js'
+import { showToast } from '@/utils/utils.js'
 
 export default {
   name: 'admin',
@@ -66,15 +67,9 @@ export default {
     AdminNews
   },
   data: () => ({
-    username: '',
-    password: '',
-    targetChoice: '',
-    display: false,
-    atLeastOneError: false,
-    errors: {
-      'username': '',
-      'password': ''
-    }
+    username: appenum.EMPTY,
+    password: appenum.EMPTY,
+    display: false
   }),
   created () {
     if (!this.$store.state.logged && this.$route.params.page !== undefined) {
@@ -84,34 +79,24 @@ export default {
     }
   },
   methods: {
-    async submitSignin () {
-      const response = await AdminService.signin({ username: this.username, password: this.password })
-      let success = response['data']['success']
-      let answer = response['data']['answer']
-      if (success) {
-        this.$store.state.logged = true
-        this.$store.state.username = answer.username
+    async login () {
+      let result = await login(this.username, this.password)
+      if (result) {
         showToast(appenum.LOGGED_IN, appenum.COLOR_SUCCESS)
+        this.$store.state.logged = result
+        this.$store.state.username = localStorage.getItem('username')
       } else {
-        this.errors.username = answer.username
-        this.errors.password = answer.password
-        this.atLeastOneError = true
-        showToast(appenum.INVALID_OPERATION, appenum.COLOR_DANGER)
+        showToast(appenum.INVALID_COMBINATION, appenum.COLOR_DANGER)
       }
-    },
-    target (choice) {
-      console.log(choice)
-      this.targetChoice = choice
-      console.log(this.targetChoice)
     },
     logout () {
       this.$store.state.logged = false
-      this.$store.state.username = ''
-      showToast(appenum.LOGGED_OUT, appenum.COLOR_WARNING)
+      this.$store.state.username = undefined
+      showToast(appenum.LOGGED_OUT, appenum.COLOR_SUCCESS)
     },
     getRouteAdminView () {
       if (this.$route.params.page === undefined)
-        return ''
+        return appenum.EMPTY
       else
         return this.$route.params.page
     }

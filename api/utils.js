@@ -38,7 +38,29 @@ function readableChars(string) {
     return string.replace(/&#39;/g, '\'').replace(/&quot;/g, '"')
 }
 
+function tokenGenerator() {
+    return moment(new Date()).format("YYYYMMDDHHmmss")
+}
+
 //DATABASE FUNCTIONS
+
+function setTokenForUsername(username, token) {
+    return new Promise((resolve) => {
+        const query = `UPDATE users SET token = ${ token } WHERE username = '${ username }' LIMIT 1`
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
+function getTokenForUsername(username) {
+    return new Promise((resolve) => {
+        const query = `SELECT token FROM users WHERE username = '${ username }'`
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
 
 function getUserByUsernameAndPassword(username, password) {
     return new Promise((resolve) => {
@@ -114,7 +136,10 @@ module.exports = {
     bodyBuilder,
     success,
     failure,
+    tokenGenerator,
     getUserByUsernameAndPassword,
+    setTokenForUsername,
+    getTokenForUsername,
     getPosts,
     addPost,
     deletePost,

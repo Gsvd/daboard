@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getUserByUsernameAndPassword, getCategories, success, failure } = require('../utils.js')
+const { getUserByUsernameAndPassword, getCategories, success, failure, tokenGenerator, setTokenForUsername } = require('../utils.js')
 
 router.get('/', (req, res) => {
   res.send('It Works: News!')
@@ -28,8 +28,12 @@ router.post('/signin', async (req, res) => {
   } else {
     const dbResult = await getUserByUsernameAndPassword(username, password)
     if (dbResult !== undefined && dbResult.length > 0) {
+      const token = tokenGenerator()
+      const username = dbResult[0].username
+      await setTokenForUsername(username, token)
       res.send(success(undefined, {
-        username: dbResult[0].username
+        username: username,
+        token: token
       }))
     } else {
       res.send(failure(undefined, {

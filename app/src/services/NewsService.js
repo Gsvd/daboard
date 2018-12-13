@@ -1,11 +1,11 @@
 import Api from '@/services/Api'
-import { token } from '@/security.js'
+import { apiToken } from '@/utils/security.js'
 
 export default {
   getAll () {
     return Api().get('/news/list', {
         headers: {
-            authorization: `basic ${ token }`
+            authorization: `basic ${ apiToken }`
         }
     })
   },
@@ -17,14 +17,14 @@ export default {
       author
     }, {
       headers: {
-        authorization: `basic ${ token }`
+        authorization: `basic ${ apiToken }`
       }
     })
   },
   delete ({ id }) {
     return Api().delete('/news/delete', {
       headers: {
-        authorization: `basic ${ token }`
+        authorization: `basic ${ apiToken }`
       },
       data: {
         id
@@ -34,7 +34,7 @@ export default {
   get ({ id }) {
     return Api().get('/news/get/' + id, {
       headers: {
-        authorization: `basic ${ token }`
+        authorization: `basic ${ apiToken }`
       }
     })
   },
@@ -46,7 +46,7 @@ export default {
       author
     }, {
       headers: {
-        authorization: `basic ${ token }`
+        authorization: `basic ${ apiToken }`
       }
     })
   }
