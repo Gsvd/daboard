@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getPosts, getPost, addPost, deletePost, updatePost, success, failure } = require('../utils.js')
+const { getPosts, getPost, addPost, deletePost, updatePost, success, failure, authenticateRequest } = require('../utils.js')
 
 router.get('/', (req, res) => {
   res.send('It Works: News!')
@@ -15,7 +15,14 @@ router.get('/list', async (req, res) => {
   }
 })
 
-router.put('/add', async (req, res) => {
+router.put('/add', async (req, res, next) => {
+  const authenticate = await authenticateRequest(req)
+  if (authenticate) {
+    next()
+  } else {
+    res.status(403).send('Forbidden')
+  }
+}, async (req, res, next) => {
   const title = req.body.title
   const content = req.body.content
   const category = req.body.category
@@ -35,7 +42,14 @@ router.put('/add', async (req, res) => {
   }
 })
 
-router.delete('/delete', async (req, res) => {
+router.delete('/delete', async (req, res, next) => {
+  const authenticate = await authenticateRequest(req)
+  if (authenticate) {
+    next()
+  } else {
+    res.status(403).send(failure())
+  }
+}, async (req, res, next) => {
   const id = req.body.id
   if (id === undefined) {
     res.send(failure())
@@ -63,7 +77,14 @@ router.get('/get/:id', async (req, res) => {
   }
 })
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', async (req, res, next) => {
+  const authenticate = await authenticateRequest(req)
+  if (authenticate) {
+    next()
+  } else {
+    res.status(403).send(failure())
+  }
+}, async (req, res, next) => {
   const id = req.params.id
   const title = req.body.title
   const content = req.body.content
