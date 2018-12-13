@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getPosts, addPost, success, failure } = require('../utils.js')
+const { getPosts, getPost, addPost, deletePost, updatePost, success, failure } = require('../utils.js')
 
 router.get('/', (req, res) => {
   res.send('It Works: News!')
@@ -9,13 +9,13 @@ router.get('/', (req, res) => {
 router.get('/list', async (req, res) => {
   try {
     const posts = await getPosts()
-    res.send(success(answer = posts))
+    res.send(success(undefined, posts))
   } catch (error) {
     res.send(failure())
   }
 })
 
-router.post('/add', async (req, res) => {
+router.put('/add', async (req, res) => {
   const title = req.body.title
   const content = req.body.content
   const category = req.body.category
@@ -28,6 +28,52 @@ router.post('/add', async (req, res) => {
   } else {
     try {
       const response = await addPost(title, content, category, author)
+      res.send(success())
+    } catch (error) {
+      res.send(failure())
+    }
+  }
+})
+
+router.delete('/delete', async (req, res) => {
+  const id = req.body.id
+  if (id === undefined) {
+    res.send(failure())
+  } else {
+    try {
+      const response = await deletePost(id)
+      res.send(success())
+    } catch (error) {
+      res.send(failure())
+    }
+  }
+})
+
+router.get('/get/:id', async (req, res) => {
+  const id = req.params.id
+  if (id === undefined) {
+    res.send(failure())
+  } else {
+    try {
+      const post = await getPost(id)
+      res.send(success(undefined, post))
+    } catch (error) {
+      res.send(failure())
+    }
+  }
+})
+
+router.post('/update/:id', async (req, res) => {
+  const id = req.params.id
+  const title = req.body.title
+  const content = req.body.content
+  const category = req.body.category
+  const author = req.body.author
+  if (id === undefined) {
+    res.send(failure())
+  } else {
+    try {
+      const post = await updatePost(id, title, content, category, author)
       res.send(success())
     } catch (error) {
       res.send(failure())

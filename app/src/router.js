@@ -31,7 +31,7 @@ const router = new Router({
       component: Scheduler
     },
     {
-      path: '/admin',
+      path: '/admin/:page?',
       name: 'admin',
       component: Admin
     }

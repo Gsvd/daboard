@@ -18,7 +18,7 @@
       <router-link v-if="!this.$store.state.logged && !this.$store.state.rotation" to="/admin" exact-active-class="active">
         <div class="item">Sign in</div>
       </router-link>
-      <router-link v-else-if="this.$store.state.logged && !this.$store.state.rotation" to="/admin" exact-active-class="active">
+      <router-link v-else-if="this.$store.state.logged && !this.$store.state.rotation" to="/admin" exact-active-class="active" active-class="active">
         <div class="item">Admin</div>
       </router-link>
     </div>

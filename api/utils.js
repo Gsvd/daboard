@@ -34,6 +34,10 @@ function specialChars(string) {
     return string.replace(/'/g, '&#39;').replace(/"/g, '&quot;')
 }
 
+function readableChars(string) {
+    return string.replace(/&#39;/g, '\'').replace(/&quot;/g, '"')
+}
+
 //DATABASE FUNCTIONS
 
 function getUserByUsernameAndPassword(username, password) {
@@ -66,6 +70,37 @@ function addPost(title, content, category, author) {
     })
 }
 
+function deletePost(id) {
+    return new Promise((resolve) => {
+        const query = `DELETE FROM posts WHERE id = ${ id }`
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
+function getPost(id) {
+    return new Promise((resolve) => {
+        const query = `SELECT * FROM posts WHERE id = ${ id }`
+        console.log(query)
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
+function updatePost(id, title, content, category, author) {
+    const converter = new showdown.Converter()
+    return new Promise((resolve) => {
+        let today = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        content = specialChars(content)
+        const query = `UPDATE posts SET title = '${ title }', content = '${ content }', html = '${ converter.makeHtml(content) }', author = '${ author }', category = '${ category }', creation = '${ today }' WHERE id = ${ id }`
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
 function getCategories() {
     return new Promise((resolve) => {
         const query = 'SELECT * FROM categories ORDER BY id ASC'
@@ -82,5 +117,8 @@ module.exports = {
     getUserByUsernameAndPassword,
     getPosts,
     addPost,
+    deletePost,
+    updatePost,
+    getPost,
     getCategories
 }

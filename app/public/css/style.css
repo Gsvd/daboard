@@ -15,3 +15,7 @@ html, body {
 .success {
   color: #27ae60;
 }
+
+.swal-button {
+  padding: 0 10px 0 10px !important;
+}

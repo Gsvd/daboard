@@ -40,7 +40,7 @@ export default {
   methods: {
     getPosts () {
       NewsService.getAll().then((response) => {
-        this.posts = response['data']['information']
+        this.posts = response['data']['answer']
       })
     }
   }

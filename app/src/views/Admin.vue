@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" v-if="display">
     <Navbar/>
     <div class="frame">
       <div class="signin" v-if="!this.$store.state.logged" :class="{ 'empty': atLeastOneError }">
@@ -22,34 +22,42 @@
           </form>
         </div>
       </div>
-      <div v-else-if="this.$store.state.logged && !targetChoice.length" class="adminChoiceBlock">
-        <div class="adminChoice" style="background: #1289A7" @click="target('news')">
-          <div class="contentChoice">News</div>
-        </div>
-        <div class="adminChoice" style="background: #ED4C67">
-          <div class="contentChoice">TEST</div>
-        </div>
-        <div class="adminChoice" style="background: #FFC312">
-          <div class="contentChoice">TEST</div>
-        </div>
+      <div v-else-if="this.$store.state.logged && !getRouteAdminView().length" class="adminChoiceBlock">
+        <router-link to="/admin/news">
+          <div class="adminChoice" style="background: #1289A7">
+            <div class="contentChoice">News</div>
+          </div>
+        </router-link>
+        <router-link to="/admin">
+          <div class="adminChoice" style="background: #ED4C67">
+            <div class="contentChoice">TEST</div>
+          </div>
+        </router-link>
+        <router-link to="/admin">
+          <div class="adminChoice" style="background: #FFC312">
+            <div class="contentChoice">TEST</div>
+          </div>
+        </router-link>
       </div>
-      <AdminNews v-if="targetChoice === 'news'"/>
-      <div class="twelve colmumns back" v-if="!targetChoice.length && this.$store.state.logged">
+      <AdminNews v-if="this.$route.params.page === 'news'"/>
+      <div class="twelve colmumns back" v-if="!getRouteAdminView().length && this.$store.state.logged">
           <input class="button inputform" type="button" @click="logout()" value="Logout">
       </div>
-      <div class="twelve colmumns back" v-if="!!targetChoice.length">
-          <input class="button inputform" type="button" @click="target('')" value="Back">
-      </div>
+      <router-link to="/admin">
+        <div class="twelve colmumns back" v-if="!!getRouteAdminView().length">
+          <input class="button inputform" type="button" value="Back">
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Toastify from 'toastify-js'
 import Navbar from '@/components/Navbar.vue'
 import AdminNews from '@/components/AdminNews.vue'
 import AdminService from '@/services/AdminService'
 import { appenum } from '@/enum.js'
+import { showToast } from '@/security.js'
 
 export default {
   name: 'admin',
@@ -61,12 +69,20 @@ export default {
     username: '',
     password: '',
     targetChoice: '',
+    display: false,
     atLeastOneError: false,
     errors: {
       'username': '',
       'password': ''
     }
   }),
+  created () {
+    if (!this.$store.state.logged && this.$route.params.page !== undefined) {
+      document.location.href = '/admin'
+    } else {
+      this.display = true
+    }
+  },
   methods: {
     async submitSignin () {
       const response = await AdminService.signin({ username: this.username, password: this.password })
@@ -75,20 +91,12 @@ export default {
       if (success) {
         this.$store.state.logged = true
         this.$store.state.username = answer.username
-        Toastify({
-            text: appenum.LOGGED_IN,
-            duration: 3000,
-            backgroundColor: appenum.COLOR_SUCCESS
-        }).showToast()
+        showToast(appenum.LOGGED_IN, appenum.COLOR_SUCCESS)
       } else {
         this.errors.username = answer.username
         this.errors.password = answer.password
         this.atLeastOneError = true
-        Toastify({
-            text: appenum.INVALID_OPERATION,
-            duration: 3000,
-            backgroundColor: appenum.COLOR_DANGER
-        }).showToast()
+        showToast(appenum.INVALID_OPERATION, appenum.COLOR_DANGER)
       }
     },
     target (choice) {
@@ -99,11 +107,13 @@ export default {
     logout () {
       this.$store.state.logged = false
       this.$store.state.username = ''
-      Toastify({
-        text: appenum.LOGGED_OUT,
-        duration: 3000,
-        backgroundColor: appenum.COLOR_WARNING
-      }).showToast()
+      showToast(appenum.LOGGED_OUT, appenum.COLOR_WARNING)
+    },
+    getRouteAdminView () {
+      if (this.$route.params.page === undefined)
+        return ''
+      else
+        return this.$route.params.page
     }
   }
 }
