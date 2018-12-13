@@ -141,17 +141,6 @@ function getTokenAPIForAddress(address, token) {
     })
 }
 
-async function authenticateRequest(request) {
-    const address = request.ip
-    const token = request.headers.authorization.split(' ')[1]
-    const response = await getTokenAPIForAddress(address, token)
-    if (token === response[0].token) {
-        return true
-    } else {
-        return false
-    }
-}
-
 module.exports = {
     bodyBuilder,
     success,
@@ -164,7 +153,6 @@ module.exports = {
     addPost,
     deletePost,
     updatePost,
-    authenticateRequest,
     getPost,
     getCategories,
     getTokenAPIForAddress
