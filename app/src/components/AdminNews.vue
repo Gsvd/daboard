@@ -163,7 +163,7 @@ export default {
                 const response = await NewsService.delete({ id: id })
                 let success = response['data']['success']
                 if (success) {
-                    showToast(appenum.DELETED, appenum.COLOR_WARNING)
+                    showToast(appenum.DELETED, appenum.COLOR_SUCCESS)
                     this.getPosts()
                 } else {
                     showToast(appenum.INVALID_OPERATION, appenum.COLOR_DANGER)
