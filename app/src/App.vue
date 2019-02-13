@@ -37,12 +37,12 @@ export default {
       }, 30000)
     },
     getMagnan () {
-      TransportService.getLigneAzur(32256).then((response) => {
+      TransportService.getLigneAzur(32253).then((response) => {
         this.$store.state.magnan = response
       })
     },
     getAirport () {
-      TransportService.getLigneAzur(32253).then((response) => {
+      TransportService.getLigneAzur(32256).then((response) => {
         this.$store.state.airport = response
       })
     },

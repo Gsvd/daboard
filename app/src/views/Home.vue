@@ -34,14 +34,14 @@
                 <table class="u-full-width">
                   <thead>
                     <tr>
-                      <td style="text-align: center;" class="title">Direction</td>
-                      <td style="text-align: left;" class="title">Arrival</td>
+                      <td class="title">Direction</td>
+                      <td class="title">Arrivée</td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(train, index) in this.$store.state.trains" :key="index">
-                      <td style="text-align: center;">{{ train[0] }}</td>
-                      <td style="text-align: left;">{{ train[1] }}</td>
+                      <td>{{ train[0] }}</td>
+                      <td>{{ train[1] }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -138,11 +138,14 @@ export default {
 
               table {
 
+                table-layout: fixed;
+
                 tr {
 
                   td {
 
                     border: none;
+                    text-align: center;
                     font-size: 15px;
 
                   }
