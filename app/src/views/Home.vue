@@ -7,18 +7,20 @@
           <div class="schedule-title">TRAM L2 Parc Phoenix</div>
           <div class="content-block">
             <div class="side">
-              <div class="title">Magnan</div>
+              <div class="title-home">Magnan</div>
               <div class="entry">
                 <ul>
+                  <li v-if="this.$store.state.magnan.length <= 0"><img src="../assets/images/meh.svg" class="icon"></li>
                   <li v-for="(tram, index) in this.$store.state.magnan" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
                   <li v-else>Imminent</li> 
                 </ul>
               </div>
             </div>
             <div class="side">
-              <div class="title">Aéroport</div>
+              <div class="title-home">Aéroport</div>
               <div class="entry">
                 <ul>
+                  <li v-if="this.$store.state.airport.length <= 0"><img src="../assets/images/meh.svg" class="icon"></li>
                   <li v-for="(tram, index) in this.$store.state.airport" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
                   <li v-else>Imminent</li>
                 </ul>
@@ -34,12 +36,16 @@
                 <table class="u-full-width">
                   <thead>
                     <tr>
-                      <td class="title">Direction</td>
-                      <td class="title">Arrivée</td>
+                      <td class="title-home">Direction</td>
+                      <td class="title-home">Arrivée</td>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(train, index) in this.$store.state.trains" :key="index">
+                    <tr v-if="this.$store.state.trains.length <= 0">
+                      <td><img src="../assets/images/meh.svg" class="icon"></td>
+                      <td><img src="../assets/images/meh.svg" class="icon"></td>
+                    </tr>
+                    <tr v-else v-for="(train, index) in this.$store.state.trains" :key="index">
                       <td>{{ train[0] }}</td>
                       <td>{{ train[1] }}</td>
                     </tr>
@@ -72,7 +78,7 @@ export default {
 </script>
 
 <style lang="scss">
-.title {
+.title-home {
 
   text-align: center;
   font-size: 15px;
