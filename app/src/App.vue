@@ -6,10 +6,17 @@
 
 <script>
 import { connectByToken, logout } from '@/utils/security.js'
+import TransportService from '@/services/TransportService'
 
 export default {
   name: 'App',
   mounted () {
+    this.getMagnan()
+    this.getAirport()
+    setInterval(() => {
+      this.getMagnan()
+      this.getAirport()
+    }, 30000)
     this.connectByToken()
   },
   methods: {
@@ -23,6 +30,16 @@ export default {
           this.$store.state.username = localStorage.getItem('username')
         }
       }
+    },
+    getMagnan () {
+      TransportService.getTramways(32256).then((response) => {
+        this.$store.state.magnan = response
+      })
+    },
+    getAirport () {
+      TransportService.getTramways(32253).then((response) => {
+        this.$store.state.airport = response
+      })
     }
   }
 }

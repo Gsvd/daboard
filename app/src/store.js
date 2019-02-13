@@ -7,8 +7,10 @@ export default new Vuex.Store({
   state: {
     logged: false,
     rotation: false,
-    timeRotation: 5000,
-    username: ''
+    timeRotation: 30000,
+    username: '',
+    magnan: [],
+    airport: []
   },
   mutations: {
     toggleRotation (state, status) {
