@@ -11,12 +11,7 @@ import TransportService from '@/services/TransportService'
 export default {
   name: 'App',
   mounted () {
-    this.getMagnan()
-    this.getAirport()
-    setInterval(() => {
-      this.getMagnan()
-      this.getAirport()
-    }, 30000)
+    this.startServices()
     this.connectByToken()
   },
   methods: {
@@ -31,14 +26,29 @@ export default {
         }
       }
     },
+    startServices () {
+      this.getMagnan()
+      this.getAirport()
+      this.getTrains()
+      setInterval(() => {
+        this.getMagnan()
+        this.getAirport()
+        this.getTrains()
+      }, 30000)
+    },
     getMagnan () {
-      TransportService.getTramways(32256).then((response) => {
+      TransportService.getLigneAzur(32256).then((response) => {
         this.$store.state.magnan = response
       })
     },
     getAirport () {
-      TransportService.getTramways(32253).then((response) => {
+      TransportService.getLigneAzur(32253).then((response) => {
         this.$store.state.airport = response
+      })
+    },
+    getTrains () {
+      TransportService.getTrains().then((response) => {
+        this.$store.state.trains = response
       })
     }
   }

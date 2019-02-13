@@ -2,25 +2,50 @@
   <div class="content">
     <Navbar/>
     <div class="frame">
-      <div class="tramway-block">
-        <div class="tramway-title">L2 Parc Phoenix</div>
-        <div class="content-block">
-          <div class="side">
-            <div class="title">Magnan</div>
-            <div class="entry">
-              <ul>
-                <li v-for="minute in this.$store.state.magnan" :key="minute" v-if="minute > 0">{{ minute }} minute{{ minute > 1 ? 's' : '' }}</li>
-                <li v-else>Imminent</li> 
-              </ul>
+      <div class="schedule-content">
+        <div class="schedule-block">
+          <div class="schedule-title">TRAM</div>
+          <div class="content-block">
+            <div class="side">
+              <div class="title">Magnan</div>
+              <div class="entry">
+                <ul>
+                  <li v-for="(tram, index) in this.$store.state.magnan" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
+                  <li v-else>Imminent</li> 
+                </ul>
+              </div>
+            </div>
+            <div class="side">
+              <div class="title">Aéroport</div>
+              <div class="entry">
+                <ul>
+                  <li v-for="(tram, index) in this.$store.state.airport" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
+                  <li v-else>Imminent</li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="side">
-            <div class="title">Aéroport</div>
-            <div class="entry">
-              <ul>
-                <li v-for="minute in this.$store.state.airport" :key="minute" v-if="minute > 0">{{ minute }} minute{{ minute > 1 ? 's' : '' }}</li>
-                <li v-else>Imminent</li>
-              </ul>
+        </div>
+        <div class="schedule-block">
+          <div class="schedule-title">SNCF Saint Augustin</div>
+          <div class="content-block">
+            <div class="side">
+              <div class="entry">
+                <table class="u-full-width">
+                  <thead>
+                    <tr>
+                      <td style="text-align: center;" class="title">Direction</td>
+                      <td style="text-align: left;" class="title">Arrival</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(train, index) in this.$store.state.trains" :key="index">
+                      <td style="text-align: center;">{{ train[0] }}</td>
+                      <td style="text-align: left;">{{ train[1] }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -47,6 +72,15 @@ export default {
 </script>
 
 <style lang="scss">
+.title {
+
+  text-align: center;
+  font-size: 15px;
+  padding: 12px 15px;
+  font-family: 'Roboto-Bold';
+
+}
+
 .content {
 
   display: flex;
@@ -62,61 +96,80 @@ export default {
     background: rgb(253, 253, 253);
     overflow-y: auto;
 
-    .tramway-block {
+    .schedule-content {
 
       display: flex;
-      font-family: 'Roboto-Light';
-      width: 33%;
-      flex-direction: column;
-      border: 1px #ecf0f1 solid;
-      border-radius: 5px;
+      flex-direction: row;
 
-      .tramway-title {
-
-        text-align: center;
-        font-size: 30px;
-        text-align: center;
-        border-bottom: 2px #ecf0f1 solid;
-
-      }
-
-      .content-block {
+      .schedule-block {
 
         display: flex;
-        flex-direction: row;
+        margin: 15px;
+        font-family: 'Roboto-Light';
+        width: 33%;
+        flex-direction: column;
+        border: 1px #ecf0f1 solid;
+        border-radius: 5px;
 
-        .side {
+        .schedule-title {
+
+          text-align: center;
+          font-size: 30px;
+          text-align: center;
+          border-bottom: 2px #ecf0f1 solid;
+
+        }
+
+        .content-block {
 
           display: flex;
-          flex-grow: 1;
-          flex-direction: column;
-          padding: 17px;
+          flex-direction: row;
 
-          .title {
+          .side {
 
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 10px;
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            padding: 17px;
 
-          }
+            .entry {
 
-          .entry {
+              font-size: 15px;
 
-            font-size: 15px;
+              table {
 
-            ul {
+                tr {
 
-              text-align: center;
-              list-style: none;
+                  td {
 
-              li {
+                    border: none;
+                    font-size: 15px;
 
-                &:first-child {
-
-                  font-family: 'Roboto-Bold';
+                  }
 
                 }
-                
+
+              }
+
+              .text-left {
+
+                text-align: left;
+
+              }
+
+              ul {
+
+                text-align: center;
+                list-style: none;
+
+                li {
+
+                  margin: 0;
+                  padding: 12px 15px;
+                  font-size: 15px;
+                  
+                }
+
               }
 
             }
