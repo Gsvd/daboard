@@ -4,7 +4,7 @@
     <div class="frame">
       <div class="schedule-content">
         <div class="schedule-block">
-          <div class="schedule-title">TRAM</div>
+          <div class="schedule-title">TRAM L2 Parc Phoenix</div>
           <div class="content-block">
             <div class="side">
               <div class="title">Magnan</div>

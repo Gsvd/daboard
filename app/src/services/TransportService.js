@@ -1,5 +1,17 @@
 import moment from 'moment'
 
+function flat(l, o = []) {
+  for (const c of l) {
+    if (Array.isArray(c)) {
+      flat(c, o);
+    }
+    else {
+      o.push(c);
+    }
+  }
+  return o;
+}
+
 export default {
   async getLigneAzur(stop) {
     var date = new Date()
@@ -9,9 +21,9 @@ export default {
     .then(r => r.json())
     .then(o => o.StopTimetableObj.HourGroup
       .filter(hours => hours.VehicleJourneyAtStop)
-      .map(hour => hour.VehicleJourneyAtStop)
-      .flat()
-      .slice(0, 5)
+      .map(hour => hour.VehicleJourneyAtStop))
+    .then(flat)
+    .then(o => o.slice(0, 5)
       .map(t => [t.line.directionName, moment(t.passingTime.formatedHour, 'HH:mm').diff(date, 'minutes')])
     )
     return hours
