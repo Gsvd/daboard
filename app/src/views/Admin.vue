@@ -1,6 +1,5 @@
 <template>
   <div class="content" v-if="display">
-    <Navbar/>
     <div class="frame">
       <div class="signin" v-if="!this.$store.state.logged">
         <div class="title">
@@ -28,16 +27,6 @@
             <div class="contentChoice">News</div>
           </div>
         </router-link>
-        <router-link to="/admin">
-          <div class="adminChoice" style="background: #ED4C67">
-            <div class="contentChoice">TEST</div>
-          </div>
-        </router-link>
-        <router-link to="/admin">
-          <div class="adminChoice" style="background: #FFC312">
-            <div class="contentChoice">TEST</div>
-          </div>
-        </router-link>
       </div>
       <AdminNews v-if="this.$route.params.page === 'news'"/>
       <div class="twelve colmumns back" v-if="!getRouteAdminView().length && this.$store.state.logged">
@@ -53,7 +42,6 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
 import AdminNews from '@/components/AdminNews.vue'
 import AdminService from '@/services/AdminService'
 import { login, logout } from '@/utils/security.js'
@@ -63,7 +51,6 @@ import { showToast } from '@/utils/utils.js'
 export default {
   name: 'admin',
   components: {
-    Navbar,
     AdminNews
   },
   data: () => ({
@@ -109,6 +96,14 @@ export default {
 a {
   text-decoration: none;
 }
+
+.content {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+}
+
 .frame {
 
   display: flex;

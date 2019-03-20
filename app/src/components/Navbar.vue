@@ -44,10 +44,9 @@ export default {
 .sidebar {
 
   display: flex;
-  z-index: 100;
   flex-direction: column;
   min-width: 250px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 
   a {
 
@@ -83,7 +82,7 @@ export default {
 
     .brand {
       display: flex;
-      min-height: 100px;
+      min-height: 10vh;
       align-items: center;
       justify-content: center;
       font-family: "Roboto-Bold";

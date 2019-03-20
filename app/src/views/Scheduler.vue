@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-    <Navbar/>
     <div class="frame">
 
     </div>
@@ -8,13 +7,8 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-
 export default {
   name: 'scheduler',
-  components: {
-    Navbar
-  }
 }
 </script>
 

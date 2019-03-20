@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-    <Navbar/>
     <div class="frame">
       <div class="schedule-content">
         <div class="schedule-block">
@@ -10,7 +9,7 @@
               <div class="title-home">Magnan</div>
               <div class="entry">
                 <ul>
-                  <li v-if="this.$store.state.magnan.length <= 0"><img src="../assets/images/meh.svg" class="icon"></li>
+                  <li v-if="this.$store.state.magnan.length <= 0"><img src="@/assets/images/meh.svg" class="icon"></li>
                   <li v-for="(tram, index) in this.$store.state.magnan" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
                   <li v-else>Imminent</li> 
                 </ul>
@@ -20,7 +19,7 @@
               <div class="title-home">Aéroport</div>
               <div class="entry">
                 <ul>
-                  <li v-if="this.$store.state.airport.length <= 0"><img src="../assets/images/meh.svg" class="icon"></li>
+                  <li v-if="this.$store.state.airport.length <= 0"><img src="@/assets/images/meh.svg" class="icon"></li>
                   <li v-for="(tram, index) in this.$store.state.airport" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
                   <li v-else>Imminent</li>
                 </ul>
@@ -42,8 +41,8 @@
                   </thead>
                   <tbody>
                     <tr v-if="this.$store.state.trains.length <= 0">
-                      <td><img src="../assets/images/meh.svg" class="icon"></td>
-                      <td><img src="../assets/images/meh.svg" class="icon"></td>
+                      <td><img src="@/assets/images/meh.svg" class="icon"></td>
+                      <td><img src="@/assets/images/meh.svg" class="icon"></td>
                     </tr>
                     <tr v-else v-for="(train, index) in this.$store.state.trains" :key="index">
                       <td>{{ train[0] }}</td>
@@ -65,9 +64,6 @@ import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'home',
-  components: {
-    Navbar
-  },
   mounted () {
     if (this.$route.path === '/start') {
       this.$store.commit('toggleRotation', true)
@@ -99,13 +95,12 @@ export default {
     flex-direction: column;
     display: flex;
     padding: 15px;
-    background: rgb(253, 253, 253);
     overflow-y: auto;
 
     .schedule-content {
 
       display: flex;
-      flex-direction: row;
+      flex-flow: row wrap;
 
       .schedule-block {
 
@@ -114,7 +109,8 @@ export default {
         font-family: 'Roboto-Light';
         width: 33%;
         flex-direction: column;
-        border: 1px #ecf0f1 solid;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+        min-width: 350px;
         border-radius: 5px;
 
         .schedule-title {

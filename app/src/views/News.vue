@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-    <Navbar/>
     <div class="frame">
       <div class="newsblock" v-for="(post, index) in posts" v-bind:key="index">
         <div class="header">
@@ -23,14 +22,10 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
 import NewsService from '@/services/NewsService'
 
 export default {
   name: 'news',
-  components: {
-    Navbar
-  },
   data: () => ({
     posts: []
   }),
@@ -61,7 +56,8 @@ export default {
   border-radius: 5px;
   border: 1px #ecf0f1 solid;
   padding: 15px;
-  max-width: 920px;
+  width: 60%;
+  min-width: 350px;
   margin: auto;
 
   .header {

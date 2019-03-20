@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Navbar/>
     <router-view/>
   </div>
 </template>
@@ -7,9 +8,13 @@
 <script>
 import { connectByToken, logout } from '@/utils/security.js'
 import TransportService from '@/services/TransportService'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'App',
+  components: {
+    Navbar
+  },
   mounted () {
     this.startServices()
     this.connectByToken()
@@ -75,5 +80,9 @@ export default {
 .icon {
   width: 20px;
   margin: 0 2px 0 2px;
+}
+#app {
+  display: flex;
+  flex-flow: row;
 }
 </style>
