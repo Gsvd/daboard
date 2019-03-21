@@ -23,7 +23,7 @@
       </router-link>
     </div>
     <div class="copyright">
-      Made with <img src="../assets/images/heart.svg" class="icon"> in Nice, France <img src="../assets/images/sun.svg" class="icon">
+      Made with <img src="@/assets/images/heart.svg" class="icon"> in Nice, France <img src="@/assets/images/sun.svg" class="icon">
     </div>
   </div>
 </template>
@@ -46,7 +46,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-width: 250px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
   a {
 

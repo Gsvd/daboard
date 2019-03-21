@@ -8,7 +8,7 @@
             <form action="" method="POST" @submit.prevent="submitNews">
                 <div class="ten columns form-group">
                     <label for="titleInput">Title</label>
-                    <input class="u-full-width inputform" type="text" placeholder="Mars attacks!" id="titleInput" v-model="title">
+                    <input class="inputform" type="text" placeholder="Mars attacks!" id="titleInput" v-model="title">
                 </div>
                 <div class="two columns form-group">
                     <label for="categoryInput">Category</label>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="twelve columns form-group">
                     <label for="contentInput">Content</label>
-                    <textarea class="u-full-width inputform" placeholder="# You can *write* markdown here" id="contentInput" v-model="content" ></textarea>
+                    <textarea class="inputform" placeholder="# You can *write* markdown here" id="contentInput" v-model="content" ></textarea>
                 </div>
                 <div class="twelve colmumns">
                     <input type="hidden" v-model="editid">
@@ -164,15 +164,13 @@ export default {
 
         min-height: 70vh;
         display: block;
-        background: white;
-        border: 1px #ecf0f1 solid;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         border-radius: 5px;
 
         .title {
 
             font-size: 30px;
             text-align: center;
-            border-bottom: 2px #ecf0f1 solid;
 
         }
 
@@ -201,8 +199,7 @@ export default {
 
         min-height: 70vh;
         display: block;
-        background: white;
-        border: 1px #ecf0f1 solid;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         border-radius: 5px;
         overflow: hidden;
         overflow-y: auto;
@@ -211,18 +208,12 @@ export default {
 
             font-size: 30px;
             text-align: center;
-            border-bottom: 2px #ecf0f1 solid;
-
-        }
-
-        .newsRow + .newsRow {
-
-            border-top: 1px #ecf0f1 solid;
 
         }
 
         .newsRow {
 
+            border-top: 1px #ecf0f1 solid;
             cursor: pointer;
             text-align: center;
             display: flex;
@@ -241,6 +232,10 @@ export default {
 
                 border-bottom: 1px #ecf0f1 solid;
 
+            }
+
+            &:first-of-type {
+                border-bottom: 1px #ecf0f1 solid;
             }
 
             height: 75px;

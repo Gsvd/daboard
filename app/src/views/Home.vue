@@ -115,7 +115,6 @@ export default {
     flex-grow: 1;
     flex-direction: column;
     display: flex;
-    overflow-y: auto;
 
     .block-content {
 
@@ -128,7 +127,7 @@ export default {
         margin: 15px;
         font-family: 'Roboto-Light';
         flex-direction: column;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         border-radius: 5px;
         padding: 5px 25px 5px 25px;
         flex-grow: 1;
@@ -138,7 +137,6 @@ export default {
           text-align: center;
           font-size: 30px;
           text-align: center;
-          border-bottom: 2px #ecf0f1 solid;
 
         }
 
