@@ -8,7 +8,11 @@ const app = express()
 app.use(helmet())
 app.use(morgan('dev'))
 app.use(bodyParser.json())
-app.use(cors())
+
+//ALLOW API CALLS FROM RESTRICTED HOSTS
+app.use(cors({
+  origin: 'http://localhost:8080'
+}))
 
 app.use(require('./controllers'))
 

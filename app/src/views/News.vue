@@ -14,7 +14,7 @@
         </div>
         <div class="text" v-html="post.html"></div>
         <div class="date">
-          by {{ post.author }} at {{ new Date(post.creation).toLocaleString() }}
+          by {{ post.author }} - {{ new Date(post.creation).toLocaleString() }}
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@ export default {
   display: block;
   background: white;
   border-radius: 5px;
-  border: 1px #ecf0f1 solid;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   padding: 15px;
   width: 60%;
   min-width: 350px;

@@ -6,23 +6,43 @@
           <div class="schedule-title">TRAM L2 Parc Phoenix</div>
           <div class="content-block">
             <div class="side">
-              <div class="title-home">Magnan</div>
               <div class="entry">
-                <ul>
-                  <li v-if="this.$store.state.magnan.length <= 0"><img src="@/assets/images/meh.svg" class="icon"></li>
-                  <li v-for="(tram, index) in this.$store.state.magnan" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
-                  <li v-else>Imminent</li> 
-                </ul>
+                <table class="u-full-width">
+                  <thead>
+                    <tr>
+                      <td class="title-home">Magnan</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-if="this.$store.state.magnan.length <= 0">
+                      <td><img src="@/assets/images/meh.svg" class="icon"></td>
+                    </tr>
+                    <tr v-else v-for="(tram, index) in this.$store.state.magnan" :key="index">
+                      <td v-if="tram[1] > 0">{{ tram[1] }} minutes</td>
+                      <td v-else>Imminent</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <div class="side">
-              <div class="title-home">Aéroport</div>
               <div class="entry">
-                <ul>
-                  <li v-if="this.$store.state.airport.length <= 0"><img src="@/assets/images/meh.svg" class="icon"></li>
-                  <li v-for="(tram, index) in this.$store.state.airport" :key="index" v-if="tram[1] > 0">{{ tram[1] }} minute{{ tram[1] > 1 ? 's' : '' }}</li>
-                  <li v-else>Imminent</li>
-                </ul>
+                <table class="u-full-width">
+                  <thead>
+                    <tr>
+                      <td class="title-home">Aéroport</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-if="this.$store.state.airport.length <= 0">
+                      <td><img src="@/assets/images/meh.svg" class="icon"></td>
+                    </tr>
+                    <tr v-else v-for="(tram, index) in this.$store.state.airport" :key="index">
+                      <td v-if="tram[1] > 0">{{ tram[1] }} minutes</td>
+                      <td v-else>Imminent</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

@@ -39,7 +39,7 @@ export default {
         this.getMagnan()
         this.getAirport()
         this.getTrains()
-      }, 30000)
+      }, 60000)
     },
     getMagnan () {
       TransportService.getLigneAzur(32253).then((response) => {
