@@ -1,13 +1,13 @@
 <template>
   <div class="content">
     <div class="frame">
-      <div class="schedule-content">
-        <div class="schedule-block">
-          <div class="schedule-title">TRAM L2 Parc Phoenix</div>
+      <div class="block-content">
+        <div class="item-block">
+          <div class="item-title">TRAM L2 Parc Phoenix</div>
           <div class="content-block">
             <div class="side">
               <div class="entry">
-                <table class="u-full-width">
+                <table>
                   <thead>
                     <tr>
                       <td class="title-home">Magnan</td>
@@ -27,7 +27,7 @@
             </div>
             <div class="side">
               <div class="entry">
-                <table class="u-full-width">
+                <table>
                   <thead>
                     <tr>
                       <td class="title-home">Aéroport</td>
@@ -47,8 +47,8 @@
             </div>
           </div>
         </div>
-        <div class="schedule-block">
-          <div class="schedule-title">SNCF Saint Augustin</div>
+        <div class="item-block">
+          <div class="item-title">SNCF Saint Augustin</div>
           <div class="content-block">
             <div class="side">
               <div class="entry">
@@ -108,32 +108,32 @@ export default {
   display: flex;
   flex-direction: row;
   height: 100vh;
+  width: 100%;
 
   .frame {
     
     flex-grow: 1;
     flex-direction: column;
     display: flex;
-    padding: 15px;
     overflow-y: auto;
 
-    .schedule-content {
+    .block-content {
 
       display: flex;
       flex-flow: row wrap;
 
-      .schedule-block {
+      .item-block {
 
         display: flex;
         margin: 15px;
         font-family: 'Roboto-Light';
-        width: 33%;
         flex-direction: column;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-        min-width: 350px;
         border-radius: 5px;
+        padding: 5px 25px 5px 25px;
+        flex-grow: 1;
 
-        .schedule-title {
+        .item-title {
 
           text-align: center;
           font-size: 30px;
@@ -160,7 +160,8 @@ export default {
 
               table {
 
-                table-layout: fixed;
+                width: 100%;
+                margin: 0;
 
                 tr {
 
