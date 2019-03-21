@@ -1,4 +1,5 @@
 import AdminService from '@/services/AdminService'
+import store from '@/store.js'
 
 export const apiToken = '@4hwwu_MX99=GB2e^WkzttG9TR37-JLF$d=6A5xq%q%+4ny4bsuG4t$PbXvhuH*D'
 
@@ -34,4 +35,5 @@ export function logout() {
   localStorage.removeItem('username')
   localStorage.removeItem('id')
   localStorage.removeItem('token')
+  store.state.logged = false
 }
