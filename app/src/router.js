@@ -9,6 +9,7 @@ import Admin from './views/admin/Index.vue'
 import AdminNews from './views/admin/News.vue'
 import AdminHome from './views/admin/Home.vue'
 import AdminLogin from './views/admin/Login.vue'
+import PageNotFound from './views/errors/404.vue'
 
 Vue.use(Router)
 
@@ -51,6 +52,14 @@ const router = new Router({
           meta: { requiresAuth: true }
         }
       ]
+    },
+    {
+      path: '/error/404',
+      component: PageNotFound
+    },
+    {
+      path: '*',
+      redirect: '/error/404'
     }
   ]
 })
