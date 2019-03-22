@@ -9,6 +9,7 @@ export default new Vuex.Store({
     rotation: false,
     timeRotation: 30000,
     username: '',
+    rank: '',
     magnan: [],
     airport: [],
     trains: []
@@ -18,7 +19,9 @@ export default new Vuex.Store({
       state.rotation = status
     }
   },
-  actions: {
-
+  getters: {
+    isAdmin: (state) => {
+      return Number(state.rank) === 1
+    }
   }
 })

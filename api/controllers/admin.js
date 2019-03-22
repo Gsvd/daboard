@@ -1,10 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getUserByUsernameAndPassword, getCategories, success, failure, tokenGenerator, setTokenForUserID, getTokenForUserID } = require('../utils.js')
-
-router.get('/', (req, res) => {
-  res.send('It Works: News!')
-})
+const { getRankById, getUserByUsernameAndPassword, getCategories, success, failure, tokenGenerator, setTokenForUserID, getTokenForUserID } = require('../utils.js')
 
 router.get('/category/list', async (req, res) => {
   try {
@@ -12,6 +8,15 @@ router.get('/category/list', async (req, res) => {
     res.send(success(undefined, {
       categories: response
     }))
+  } catch (error) {
+    res.send(failure())
+  }
+})
+
+router.get('/rank/:id', async (req, res) => {
+  try {
+    const response = await getRankById(req.params.id)
+    res.send(response[0])
   } catch (error) {
     res.send(failure())
   }
@@ -31,11 +36,13 @@ router.post('/login', async (req, res) => {
       const token = tokenGenerator()
       const username = response[0].username
       const id = response[0].id
+      const rank = response[0].rank
       await setTokenForUserID(id, token)
       res.send(success(undefined, {
         username: username,
         id: id,
-        token: token
+        token: token,
+        rank: rank
       }))
     } else {
       res.send(failure(undefined, {
@@ -56,7 +63,8 @@ router.get('/logged/user/:id/token/:token', async (req, res) => {
       res.send(success(undefined, {
         id: response[0].id,
         username: response[0].username,
-        token: response[0].token
+        token: response[0].token,
+        rank: response[0].rank
       }))
     } else {
       res.send(failure())

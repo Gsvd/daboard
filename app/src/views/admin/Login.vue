@@ -40,6 +40,7 @@ export default {
         showToast(appenum.LOGGED_IN, appenum.COLOR_SUCCESS)
         this.$store.state.logged = result
         this.$store.state.username = localStorage.getItem('username')
+        this.$store.state.rank = localStorage.getItem('rank')
         this.$router.push({ path: '/admin' })
       } else {
         showToast(appenum.INVALID_COMBINATION, appenum.COLOR_DANGER)

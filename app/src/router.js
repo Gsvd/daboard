@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store.js'
-import { autoAuthentication } from './utils/security'
 
 import Home from './views/Home.vue'
 import News from './views/News.vue'
@@ -10,6 +9,7 @@ import Admin from './views/admin/Index.vue'
 import AdminNews from './views/admin/News.vue'
 import AdminHome from './views/admin/Home.vue'
 import AdminLogin from './views/admin/Login.vue'
+import AdminUsers from './views/admin/Users.vue'
 import PageNotFound from './views/errors/404.vue'
 
 Vue.use(Router)
@@ -51,6 +51,11 @@ const router = new Router({
           path: 'news',
           component: AdminNews,
           meta: { requiresAuth: true }
+        },
+        {
+          path: 'users',
+          component: AdminUsers,
+          meta: { requiresAuth: true, requiresAdmin: true }
         }
       ]
     },
@@ -75,9 +80,17 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-  } else {
-    next()
+  } 
+  if (to.matched.some(record => record.meta.requiresAdmin)) {
+    if (!store.getters.isAdmin) {
+      next({
+        path: '/admin'
+      })
+    } else {
+      next()
+    }
   }
+  next()
 })
 
 export default router

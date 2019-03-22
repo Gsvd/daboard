@@ -55,7 +55,7 @@ function setTokenForUserID(id, token) {
 
 function getTokenForUserID(id) {
     return new Promise((resolve) => {
-        const query = `SELECT id, username, token FROM users WHERE id = '${ id }'`
+        const query = `SELECT id, username, token, rank FROM users WHERE id = '${ id }'`
         db.query(query, function (error, result, fields) {
             resolve(result)
         })
@@ -132,6 +132,15 @@ function getCategories() {
     })
 }
 
+function getRankById(id) {
+    return new Promise((resolve) => {
+        const query = `SELECT label FROM ranks WHERE id = '${ id }'`
+        db.query(query, function (error, result, fields) {
+            resolve(result)
+        })
+    })
+}
+
 function getTokenAPIForAddress(address, token) {
     return new Promise((resolve) => {
         const query = `SELECT * FROM auth WHERE token = '${ token }' AND addressV4 = '${ address }' OR addressV6 = '${ address }' LIMIT 1`
@@ -155,5 +164,6 @@ module.exports = {
     updatePost,
     getPost,
     getCategories,
-    getTokenAPIForAddress
+    getTokenAPIForAddress,
+    getRankById
 }

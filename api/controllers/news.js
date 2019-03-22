@@ -2,10 +2,6 @@ const express = require('express')
 const router = express.Router()
 const { getPosts, getPost, addPost, deletePost, updatePost, success, failure } = require('../utils.js')
 
-router.get('/', (req, res) => {
-  res.send('It Works: News!')
-})
-
 router.get('/list', async (req, res) => {
   try {
     const posts = await getPosts()

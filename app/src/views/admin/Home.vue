@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div class="title">{{ this.greeting }},&nbsp;{{ this.$store.state.username }}</div>
+    <div class="title">{{ this.greeting }},&nbsp;{{ `${ this.$store.state.username } (${ rank })` }}</div>
     <div class="adminChoiceBlock">
-      <router-link to="/admin/news">
-        <div class="adminChoice" style="background: #1289A7">
-          <div class="contentChoice">News</div>
-        </div>
+      <router-link to="/admin/news" class="adminChoice" style="background: #1289A7">
+        <div class="contentChoice">News</div>
+      </router-link>
+      <router-link to="/admin/users" class="adminChoice" style="background: #feca57" v-if="this.$store.getters.isAdmin">
+        <div class="contentChoice">Users</div>
       </router-link>
     </div>
   </div>
@@ -13,13 +14,18 @@
 
 <script>
 import { greeting } from '@/utils/utils.js'
+import AdminService from '@/services/AdminService'
 
 export default {
   data: () => ({
-    greeting: ''
+    greeting: '',
+    rank: null
   }),
   mounted () {
     this.greeting = greeting()
+    AdminService.getRankById(this.$store.state.rank).then((response) => {
+      this.rank = response['data']['label']
+    })
   }
 }
 </script>
@@ -45,6 +51,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-flow: row wrap;
 
   .adminChoice {
 

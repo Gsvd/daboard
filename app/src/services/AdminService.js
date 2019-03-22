@@ -14,5 +14,8 @@ export default {
   },
   isLogged ({ id, token }) {
     return Api().get(`/admin/logged/user/${ id }/token/${ token }`)
+  },
+  getRankById (id) {
+    return Api().get(`/admin/rank/${ id }`)
   }
 }

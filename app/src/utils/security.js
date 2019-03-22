@@ -11,6 +11,7 @@ export async function login(username, password) {
     localStorage.setItem('username', answer.username)
     localStorage.setItem('id', answer.id)
     localStorage.setItem('token', answer.token)
+    localStorage.setItem('rank', answer.rank)
     return true
   } else {
     return false
@@ -25,6 +26,7 @@ export async function connectByToken(id, token) {
     localStorage.setItem('username', answer.username)
     localStorage.setItem('id', answer.id)
     localStorage.setItem('token', answer.token)
+    localStorage.setItem('rank', answer.rank)
     return true
   } else {
     return false
@@ -47,6 +49,7 @@ export async function autoAuthentication() {
       if (connected) {
         store.state.logged = connected
         store.state.username = localStorage.getItem('username')
+        store.state.rank = localStorage.getItem('rank')
       }
     }
   }
