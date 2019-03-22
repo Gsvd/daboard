@@ -158,7 +158,10 @@ export default {
 <style lang="scss" scoped>
 .newsBlock {
 
-    max-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 
     .addNews {
 

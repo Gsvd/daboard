@@ -45,7 +45,10 @@ export default {
 
   display: flex;
   flex-direction: column;
-  min-width: 250px;
+  vertical-align: top;
+  height: 100vh;
+  position: fixed;
+  width: 200px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
   a {

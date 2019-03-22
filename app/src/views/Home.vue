@@ -74,18 +74,51 @@
             </div>
           </div>
         </div>
+        <div class="item-block">
+          <div class="item-title">Meteo</div>
+          <div class="meteo" v-for="element in meteo" :key="element.dt">
+            <div class="date">
+              {{ element.dt_txt }}
+            </div>
+            <div class="temperature">
+              <table class="u-full-width" style="width: 60%; margin: auto;">
+                <tr>
+                  <td style="text-align: right;"><img src="@/assets/images/thermometer.svg"></td>
+                  <td style="text-align: left;">{{ element['main'].temp }} °C</td>
+                  <td style="text-align: right;"><img :src="'/images/meteo/' + element['weather'][0].icon + '.svg'"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'home',
+  data: () => ({
+    meteo: null
+  }),
   mounted () {
     if (this.$route.path === '/start') {
       this.$store.commit('toggleRotation', true)
       this.$router.push({ path: '/' })
+    }
+    this.refreshMeteo()
+    setInterval(this.refreshMeteo(), 60000)
+  },
+  methods: {
+    refreshMeteo () {
+      axios
+        .get('http://api.openweathermap.org/data/2.5/forecast?id=6454924&appid=075bf16ec302d49fd9586cbd8b0b476c&units=metric')
+        .then((response) => {
+          this.meteo = response['data']['list'].slice(0, 3)
+        })
     }
   }
 }
@@ -101,10 +134,30 @@ export default {
 
 }
 
+table {
+
+  width: 100%;
+  margin: 0;
+
+  tr {
+
+    td {
+
+      border: none;
+      text-align: center;
+      font-size: 15px;
+
+    }
+
+  }
+
+}
+
 .content {
 
   display: flex;
   flex-direction: row;
+  align-content: center;
   height: 100vh;
   width: 100%;
 
@@ -138,6 +191,18 @@ export default {
 
         }
 
+        .meteo {
+          margin-top: 25px;
+          .date {
+            font-family: Roboto-Bold;
+            font-size: 15px;
+          }
+          .temperature {
+            text-align: center;
+            margin-top: 10px;
+          }
+        }
+
         .content-block {
 
           display: flex;
@@ -153,25 +218,6 @@ export default {
             .entry {
 
               font-size: 15px;
-
-              table {
-
-                width: 100%;
-                margin: 0;
-
-                tr {
-
-                  td {
-
-                    border: none;
-                    text-align: center;
-                    font-size: 15px;
-
-                  }
-
-                }
-
-              }
 
               .text-left {
 

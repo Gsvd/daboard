@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar v-if="!this.$route.path.includes('error')"/>
-    <router-view/>
+    <router-view style="margin-left: 200px;"/>
   </div>
 </template>
 
