@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store.js'
+import { autoAuthentication } from './utils/security'
 
 import Home from './views/Home.vue'
 import News from './views/News.vue'

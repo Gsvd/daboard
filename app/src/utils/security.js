@@ -37,3 +37,17 @@ export function logout() {
   localStorage.removeItem('token')
   store.state.logged = false
 }
+
+export async function autoAuthentication() {
+  if (!store.state.logged) {
+    const id = localStorage.getItem('id')
+    const token = localStorage.getItem('token')
+    if (id && token) {
+      let connected = await connectByToken(id, token)
+      if (connected) {
+        store.state.logged = connected
+        store.state.username = localStorage.getItem('username')
+      }
+    }
+  }
+}

@@ -23,6 +23,7 @@ export default {
   name: 'Admin',
   methods: {
     logoutClick () {
+      logout()
       this.$store.state.logged = false
       this.$store.state.username = undefined
       this.$router.push({ path: '/admin/login' })
