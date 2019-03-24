@@ -49,6 +49,10 @@ export default {
 
 }
 
+.newsblock:first-of-type {
+  margin-top: 25px;
+}
+
 .newsblock {
 
   display: block;
@@ -59,6 +63,7 @@ export default {
   width: 60%;
   min-width: 350px;
   margin: auto;
+  margin-bottom: 25px;
 
   .header {
 

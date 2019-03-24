@@ -9,6 +9,7 @@
 import { connectByToken, logout } from '@/utils/security.js'
 import TransportService from '@/services/TransportService'
 import Navbar from '@/components/Navbar.vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -23,11 +24,22 @@ export default {
       this.getMagnan()
       this.getAirport()
       this.getTrains()
+      this.refreshMeteo()
+      this.getActuality()
+      //EVERY MINUTE
       setInterval(() => {
         this.getMagnan()
         this.getAirport()
         this.getTrains()
       }, 60000)
+      //5 MINUTES
+      setInterval(() => {
+        this.getActuality()
+      }, 300000)
+      //30 MINUTES
+      setInterval(() => {
+        this.refreshMeteo()
+      }, 1800000)
     },
     getMagnan () {
       TransportService.getLigneAzur(32253).then((response) => {
@@ -43,6 +55,20 @@ export default {
       TransportService.getTrains().then((response) => {
         this.$store.state.trains = response
       })
+    },
+    getActuality () {
+        axios
+        .get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=78c2df573fb3413ea5651bffcbe9a52e')
+        .then((response) => {
+          this.$store.state.actuality = response['data']['articles'].slice(0, 3)
+        })
+    },
+    refreshMeteo () {
+      axios
+        .get('http://api.openweathermap.org/data/2.5/forecast?id=6454924&appid=075bf16ec302d49fd9586cbd8b0b476c&units=metric')
+        .then((response) => {
+          this.$store.state.meteo = response['data']['list'].slice(0, 4)
+        })
     }
   }
 }

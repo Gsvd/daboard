@@ -12,7 +12,9 @@ export default new Vuex.Store({
     rank: '',
     magnan: [],
     airport: [],
-    trains: []
+    trains: [],
+    meteo: [],
+    actuality: []
   },
   mutations: {
     toggleRotation (state, status) {

@@ -16,6 +16,11 @@ export const appenum = {
   COLOR_DANGER: '#e74c3c',
   COLOR_WARNING: '#F79F1F',
 
+  //THEMOMETERS
+  THERMOMETER_HOT: 'hot.svg',
+  THERMOMETER_MEDIUM: 'medium.svg',
+  THERMOMETER_COLD: 'cold.svg',
+
   //UTILS
   EMPTY: ''
 }

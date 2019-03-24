@@ -75,19 +75,25 @@
           </div>
         </div>
         <div class="item-block">
-          <div class="item-title">Meteo</div>
-          <div class="meteo" v-for="element in meteo" :key="element.dt">
+          <div class="item-title">Weather</div>
+          <div class="meteo" v-for="element in this.$store.state.meteo" :key="element.dt">
             <div class="date">
-              {{ element.dt_txt }}
+              {{ element.dt_txt.slice(11) }}
             </div>
             <div class="temperature">
-              <table class="u-full-width" style="width: 60%; margin: auto;">
-                <tr>
-                  <td style="text-align: right;"><img src="@/assets/images/thermometer.svg"></td>
-                  <td style="text-align: left;">{{ element['main'].temp }} °C</td>
-                  <td style="text-align: right;"><img :src="'/images/meteo/' + element['weather'][0].icon + '.svg'"></td>
-                </tr>
-              </table>
+              <div><img class="icon-meteo" :src="'/images/meteo/' + getThermometerByTemperature(element['main'].temp)"></div>
+              <div>{{ element['main'].temp }}°C</div>
+              <div><img class="icon-meteo" :src="'/images/meteo/' + element['weather'][0].icon + '.svg'"></div>
+            </div>
+          </div>
+        </div>
+        <div class="item-block">
+          <div class="item-title">Actuality</div>
+          <div class="actuality-block">
+            <div class="actuality-element" v-for="actuality in this.$store.state.actuality" :key="actuality.publishedAt">
+              <div class="actuality-title">{{ actuality.title }}</div>
+              <div class="actuality-description">{{ actuality.description }}</div>
+              <div class="actuality-readmore"><a :href="actuality.url" target="_blank">{{ actuality.url }}</a></div>
             </div>
           </div>
         </div>
@@ -97,7 +103,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { appenum } from '@/utils/enum.js'
 
 export default {
   name: 'home',
@@ -109,16 +115,16 @@ export default {
       this.$store.commit('toggleRotation', true)
       this.$router.push({ path: '/' })
     }
-    this.refreshMeteo()
-    setInterval(this.refreshMeteo(), 60000)
   },
   methods: {
-    refreshMeteo () {
-      axios
-        .get('http://api.openweathermap.org/data/2.5/forecast?id=6454924&appid=075bf16ec302d49fd9586cbd8b0b476c&units=metric')
-        .then((response) => {
-          this.meteo = response['data']['list'].slice(0, 3)
-        })
+    getThermometerByTemperature (temperature) {
+      if (temperature < 10) {
+        return appenum.THERMOMETER_COLD
+      } else if (temperature < 20) {
+        return appenum.THERMOMETER_MEDIUM
+      } else {
+        return appenum.THERMOMETER_HOT
+      }
     }
   }
 }
@@ -132,6 +138,34 @@ export default {
   padding: 12px 15px;
   font-family: 'Roboto-Bold';
 
+}
+
+.actuality-block {
+  display: flex;
+  flex-flow: row wrap;
+  .actuality-element {
+    flex: 1 1 0;
+    padding: 15px;
+    .actuality-title {
+      font-size: 17px;
+      font-family: Roboto-Bold;
+    }
+    .actuality-description {
+      margin-top: 20px;
+      font-size: 15px;
+      font-family: Roboto;
+      text-align: justify;
+    }
+    .actuality-readmore {
+      margin-top: 25px;
+      font-family: Roboto-Light;
+      font-size: 12px;
+    }
+  }
+}
+
+.icon-meteo {
+  width: 30px;
 }
 
 table {
@@ -175,6 +209,7 @@ table {
       .item-block {
 
         display: flex;
+        flex: 1 0 21%;
         margin: 15px;
         font-family: 'Roboto-Light';
         flex-direction: column;
@@ -200,6 +235,13 @@ table {
           .temperature {
             text-align: center;
             margin-top: 10px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+          }
+          .temperature > * {
+            margin: 10px;
           }
         }
 
