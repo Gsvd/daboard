@@ -82,8 +82,10 @@
             </div>
             <div class="temperature">
               <div><img class="icon-meteo" :src="'/images/meteo/' + getThermometerByTemperature(element['main'].temp)"></div>
-              <div>{{ element['main'].temp }}°C</div>
+              <div>{{ Number(element['main'].temp).toFixed(1) }} °C</div>
               <div><img class="icon-meteo" :src="'/images/meteo/' + element['weather'][0].icon + '.svg'"></div>
+              <div>{{ (Number(element['wind'].speed)* 3.6).toFixed(1) }} km/h</div>
+              <div><img class="icon-meteo" src="/images/meteo/windy.svg"></div>
             </div>
           </div>
         </div>
@@ -120,7 +122,7 @@ export default {
     getThermometerByTemperature (temperature) {
       if (temperature < 10) {
         return appenum.THERMOMETER_COLD
-      } else if (temperature < 20) {
+      } else if (temperature < 25) {
         return appenum.THERMOMETER_MEDIUM
       } else {
         return appenum.THERMOMETER_HOT
