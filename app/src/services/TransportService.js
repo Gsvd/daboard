@@ -23,7 +23,7 @@ export default {
       .filter(hours => hours.VehicleJourneyAtStop)
       .map(hour => hour.VehicleJourneyAtStop))
     .then(flat)
-    .then(o => o.slice(0, 5)
+    .then(o => o.slice(0, 7)
       .map(t => [t.line.directionName, moment(t.passingTime.formatedHour, 'HH:mm').diff(date, 'minutes')])
     )
     return hours
@@ -38,7 +38,7 @@ export default {
     .then(r => r.json()
     .then(o => o.departures
       .map(t => [ t.display_informations.direction.match(/\(([^)]+)\)/)[1], moment(t.stop_date_time.arrival_date_time).format('HH:mm') ])
-      .slice(0, 5))
+      .slice(0, 7))
     )
     return trains
   }
