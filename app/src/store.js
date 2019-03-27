@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     logged: false,
     rotation: false,
-    timeRotation: 30000,
+    timeRotation: 15000,
     username: '',
     rank: '',
     magnan: [],

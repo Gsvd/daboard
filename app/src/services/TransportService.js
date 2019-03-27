@@ -37,7 +37,7 @@ export default {
     })
     .then(r => r.json()
     .then(o => o.departures
-      .map(t => [ t.display_informations.direction.match(/\(([^)]+)\)/)[1], moment(t.stop_date_time.arrival_date_time).format('HH:mm') ])
+      .map(t => [ t.display_informations.direction.match(/\(([^)]+)\)/)[1], moment(t.stop_date_time.base_arrival_date_time).format('HH:mm'), moment(t.stop_date_time.base_arrival_date_time, 'HH:mm').diff(moment(t.stop_date_time.arrival_date_time, 'HH:mm'), 'minutes'), moment(t.stop_date_time.arrival_date_time).format('HH:mm') ])
       .slice(0, 7))
     )
     return trains

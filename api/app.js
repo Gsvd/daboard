@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 //ALLOW API CALLS FROM RESTRICTED HOSTS
 app.use(cors({
-  origin: 'http://localhost:8080'
+  origin: ['http://localhost:8080', 'http://10.10.18.5:8080']
 }))
 
 app.use(require('./controllers'))

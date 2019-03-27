@@ -15,6 +15,11 @@
       </router-link>
     </div>
     <div class="menu-bottom">
+      <a href="#">
+        <div class="item time">
+          {{ time }}
+        </div>
+      </a>
       <router-link v-if="!this.$store.state.logged && !this.$store.state.rotation" to="/admin" exact-active-class="active">
         <div class="item">Sign in</div>
       </router-link>
@@ -23,14 +28,33 @@
       </router-link>
     </div>
     <div class="copyright">
-      Made with <img src="@/assets/images/heart.svg" class="icon"> in Nice, France <img src="@/assets/images/sun.svg" class="icon">
+      <div>
+        <img src="/images/user.svg" class="icon"> Guillaume Sivade
+      </div>
+      <div>
+        Made with <img src="@/assets/images/heart.svg" class="icon"> in Nice, France <img src="@/assets/images/sun.svg" class="icon">
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  data: () => ({
+    time: ''
+  }),
+  created () {
+    this.updateTime()
+    setInterval(this.updateTime, 1000)
+  },
+  methods: {
+    updateTime () {
+      this.time = moment().format('HH:mm:ss')
+    }
+  }
 }
 </script>
 
@@ -75,6 +99,11 @@ export default {
 
     }
 
+    .time {
+      font-family: Roboto-Bold;
+      font-size: 25px;
+    }
+
   }
 
   .menu-top {
@@ -106,6 +135,7 @@ export default {
 
     display: flex;
     padding: 5px;
+    flex-flow: column wrap;
     align-items: center;
     justify-content: center;
     font-family: "Roboto-Light";

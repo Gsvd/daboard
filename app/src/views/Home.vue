@@ -18,7 +18,7 @@
                       <td><img src="@/assets/images/meh.svg" class="icon"></td>
                     </tr>
                     <tr v-else v-for="(tram, index) in this.$store.state.magnan" :key="index">
-                      <td v-if="tram[1] > 0">{{ tram[1] }} minutes</td>
+                      <td v-if="tram[1] > 0">{{ tram[1] }} {{ getMinutePluralOrSingular(tram[1]) }}</td>
                       <td v-else>Imminent</td>
                     </tr>
                   </tbody>
@@ -38,7 +38,7 @@
                       <td><img src="@/assets/images/meh.svg" class="icon"></td>
                     </tr>
                     <tr v-else v-for="(tram, index) in this.$store.state.airport" :key="index">
-                      <td v-if="tram[1] > 0">{{ tram[1] }} minutes</td>
+                      <td v-if="tram[1] > 0">{{ tram[1] }} {{ getMinutePluralOrSingular(tram[1]) }}</td>
                       <td v-else>Imminent</td>
                     </tr>
                   </tbody>
@@ -56,7 +56,8 @@
                   <thead>
                     <tr>
                       <td class="title-home">Direction</td>
-                      <td class="title-home">Arrivée</td>
+                      <td class="title-home">Arrival</td>
+                      <td class="title-home">Delay</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -66,7 +67,10 @@
                     </tr>
                     <tr v-else v-for="(train, index) in this.$store.state.trains" :key="index">
                       <td>{{ train[0] }}</td>
-                      <td>{{ train[1] }}</td>
+                      <td v-if="train[2] > 0"><strike>{{ train[1] }}</strike> - {{ train[3] }}</td>
+                      <td v-else>{{ train[1] }}</td>
+                      <td v-if="train[2] > 0">{{ train[2] }} {{ getMinutePluralOrSingular(train[2]) }}</td>
+                      <td v-else>On time</td>
                     </tr>
                   </tbody>
                 </table>
@@ -127,6 +131,9 @@ export default {
       } else {
         return appenum.THERMOMETER_HOT
       }
+    },
+    getMinutePluralOrSingular (duration) {
+      return duration > 1 ? 'minutes' : 'minute'
     }
   }
 }
