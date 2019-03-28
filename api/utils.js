@@ -1,6 +1,10 @@
 const mysql = require('mysql')
 const showdown = require('showdown')
 const moment = require('moment')
+const axios = require('axios')
+const qs = require('qs')
+
+const db = require('./db');
 
 //REQUEST OBJECTS
 
@@ -19,14 +23,6 @@ function success(information = '', answer = {}) {
 function failure(information = '', answer = {}) {
     return bodyBuilder(false, information, answer)
 }
-
-const db = mysql.createPool({
-    connectionLimit : 10,
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'daboard'
-})
 
 //UTILS FUNCTIONS
 
@@ -146,6 +142,29 @@ function getTokenAPIForAddress(address, token) {
     })
 }
 
+function refreshOAuth() {
+  return new Promise((resolve) => {
+    axios.post('https://sso.supinfo.com/connect/token', qs.stringify({
+        grant_type: 'client_credentials',
+        scope: 'Booster.Api',
+        client_id: process.env.OAUTH_ID,
+        client_secret: process.env.OAUTH_SECRET,
+        username: process.env.OAUTH_USERNAME,
+        password: process.env.OAUTH_PASSWORD
+    }),
+    {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then((response) => {
+        resolve(response)
+    })
+    .catch(function (error) {
+        console.log(error)
+    })
+  })
+}
+
 module.exports = {
     bodyBuilder,
     success,
@@ -160,5 +179,6 @@ module.exports = {
     getPost,
     getCategories,
     getTokenAPIForAddress,
-    getRankById
+    getRankById,
+    refreshOAuth
 }
