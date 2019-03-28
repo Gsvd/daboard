@@ -5,7 +5,10 @@ const { refreshOAuth } = require('../utils.js')
 router.get('/', async (req, res) => {
   refreshOAuth().then((response) => {
     const bearer = response['data'].access_token
-    res.send(response['data'].access_token)
+    res.send(bearer)
+  })
+  .catch ((error) => {
+    res.status(500)
   })
 })
 
