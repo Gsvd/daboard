@@ -17,5 +17,11 @@ export default {
   },
   getRankById (id) {
     return Api().get(`/admin/rank/${ id }`)
+  },
+  getUsers () {
+    return Api().get('/admin/users')
+  },
+  deleteUser (id) {
+    return Api().delete(`/admin/user/${ id }`)
   }
 }

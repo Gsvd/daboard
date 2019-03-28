@@ -38,15 +38,11 @@ function readableChars(string) {
     return string.replace(/&#39;/g, '\'').replace(/&quot;/g, '"')
 }
 
-function tokenGenerator() {
-    return moment(new Date()).format("YYYYMMDDHHmmss")
-}
-
 //DATABASE FUNCTIONS
 
 function setTokenForUserID(id, token) {
     return new Promise((resolve) => {
-        const query = `UPDATE users SET token = ${ token } WHERE id = '${ id }' LIMIT 1`
+        const query = `UPDATE users SET token = '${ token }' WHERE id = '${ id }' LIMIT 1`
         db.query(query, function (error, result, fields) {
             resolve(result)
         })
@@ -154,7 +150,6 @@ module.exports = {
     bodyBuilder,
     success,
     failure,
-    tokenGenerator,
     getUserByUsernameAndPassword,
     setTokenForUserID,
     getTokenForUserID,

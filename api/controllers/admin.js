@@ -1,6 +1,9 @@
 const express = require('express')
+const uuidv4 = require('uuid/v4')
 const router = express.Router()
-const { getRankById, getUserByUsernameAndPassword, getCategories, success, failure, tokenGenerator, setTokenForUserID, getTokenForUserID } = require('../utils.js')
+const { getRankById, getUserByUsernameAndPassword, getCategories, success, failure, setTokenForUserID, getTokenForUserID } = require('../utils.js')
+
+const db = require('../db');
 
 router.get('/category/list', async (req, res) => {
   try {
@@ -22,6 +25,24 @@ router.get('/rank/:id', async (req, res) => {
   }
 })
 
+router.get('/users', async (req, res) => {
+  const query = `SELECT id, username, creation FROM users`
+  db.query(query, function (error, result, fields) {
+    res.send(result)
+  })
+})
+
+router.delete('/user/:id', async (req, res) => {
+  try {
+    const query = `DELETE FROM users WHERE id = ${ req.params.id }`
+    db.query(query, function (error, result, fields) {
+      res.send(success())
+    })
+  } catch (error) {
+    res.send(failure())
+  }
+})
+
 router.post('/login', async (req, res) => {
   const username = req.body.username
   const password = req.body.password
@@ -33,7 +54,7 @@ router.post('/login', async (req, res) => {
   } else {
     const response = await getUserByUsernameAndPassword(username, password)
     if (response !== undefined && response.length > 0) {
-      const token = tokenGenerator()
+      const token = uuidv4()
       const username = response[0].username
       const id = response[0].id
       const rank = response[0].rank
