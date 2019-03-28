@@ -18,6 +18,15 @@ export default {
   getRankById (id) {
     return Api().get(`/admin/rank/${ id }`)
   },
+  getRanks () {
+    return Api().get(`/admin/ranks`)
+  },
+  addUser (user) {
+    user.hashed = sha512(user.password)
+    return Api().put('/admin/user', {
+      user
+    })
+  },
   getUsers () {
     return Api().get('/admin/users')
   },

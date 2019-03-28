@@ -16,6 +16,30 @@ router.get('/category/list', async (req, res) => {
   }
 })
 
+router.put('/user', async (req, res) => {
+  const user = req.body.user
+  try {
+    const query = `INSERT INTO users(username, password, rank, creation) VALUES('${ user.username }', '${ user.hashed }', '${ user.rank }', NOW())`
+    console.log(query)
+    db.query(query, function (error, result, fields) {
+      res.send(success())
+    })
+  } catch (error) {
+    res.send(failure())
+  }
+})
+
+router.get('/ranks', async (req, res) => {
+  try {
+    const query = `SELECT * FROM ranks ORDER BY id DESC`
+    db.query(query, function (error, result, fields) {
+      res.send(result)
+    })
+  } catch (error) {
+    res.send(failure())
+  }
+})
+
 router.get('/rank/:id', async (req, res) => {
   try {
     const response = await getRankById(req.params.id)

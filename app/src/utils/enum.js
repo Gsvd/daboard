@@ -1,6 +1,7 @@
 export const appenum = {
   //MESSAGES
   ADDED: 'Added',
+  CREATED: 'Created',
   DELETED: 'Deleted',
   LOADED: 'Loaded',
   UPDATED: 'Updated',
