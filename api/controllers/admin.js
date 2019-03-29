@@ -3,7 +3,7 @@ const uuidv4 = require('uuid/v4')
 const router = express.Router()
 const { getRankById, getUserByUsernameAndPassword, getCategories, success, failure, setTokenForUserID, getTokenForUserID } = require('../utils.js')
 
-const db = require('../db');
+const db = require('../db')
 
 router.get('/category/list', async (req, res) => {
   try {
@@ -19,9 +19,10 @@ router.get('/category/list', async (req, res) => {
 router.put('/user', async (req, res) => {
   const user = req.body.user
   try {
-    const query = `INSERT INTO users(username, password, rank, creation) VALUES('${ user.username }', '${ user.hashed }', '${ user.rank }', NOW())`
+    const query = `INSERT INTO users(username, password, rank, creation) VALUES('${user.username}', '${user.hashed}', '${user.rank}', NOW())`
     console.log(query)
     db.query(query, function (error, result, fields) {
+      if (error) throw error
       res.send(success())
     })
   } catch (error) {
@@ -33,6 +34,7 @@ router.get('/ranks', async (req, res) => {
   try {
     const query = `SELECT * FROM ranks ORDER BY id DESC`
     db.query(query, function (error, result, fields) {
+      if (error) throw error
       res.send(result)
     })
   } catch (error) {
@@ -52,14 +54,16 @@ router.get('/rank/:id', async (req, res) => {
 router.get('/users', async (req, res) => {
   const query = `SELECT id, username, creation FROM users`
   db.query(query, function (error, result, fields) {
+    if (error) throw error
     res.send(result)
   })
 })
 
 router.delete('/user/:id', async (req, res) => {
   try {
-    const query = `DELETE FROM users WHERE id = ${ req.params.id }`
+    const query = `DELETE FROM users WHERE id = ${req.params.id}`
     db.query(query, function (error, result, fields) {
+      if (error) throw error
       res.send(success())
     })
   } catch (error) {

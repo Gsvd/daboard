@@ -7,9 +7,9 @@ router.get('/', async (req, res) => {
     const bearer = response['data'].access_token
     res.send(bearer)
   })
-  .catch ((error) => {
-    res.status(500)
-  })
+    .catch((error) => {
+      res.send(error)
+    })
 })
 
 module.exports = router

@@ -23,7 +23,7 @@ router.put('/add', async (req, res) => {
     }))
   } else {
     try {
-      const response = await addPost(title, content, category, author)
+      await addPost(title, content, category, author)
       res.send(success())
     } catch (error) {
       res.send(failure())
@@ -37,7 +37,7 @@ router.delete('/delete', async (req, res) => {
     res.send(failure())
   } else {
     try {
-      const response = await deletePost(id)
+      await deletePost(id)
       res.send(success())
     } catch (error) {
       res.send(failure())
@@ -69,7 +69,7 @@ router.post('/update/:id', async (req, res) => {
     res.send(failure())
   } else {
     try {
-      const post = await updatePost(id, title, content, category, author)
+      await updatePost(id, title, content, category, author)
       res.send(success())
     } catch (error) {
       res.send(failure())
