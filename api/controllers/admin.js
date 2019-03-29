@@ -22,7 +22,7 @@ router.put('/user', async (req, res) => {
     const query = `INSERT INTO users(username, password, rank, creation) VALUES('${user.username}', '${user.hashed}', '${user.rank}', NOW())`
     console.log(query)
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       res.send(success())
     })
   } catch (error) {
@@ -34,7 +34,7 @@ router.get('/ranks', async (req, res) => {
   try {
     const query = `SELECT * FROM ranks ORDER BY id DESC`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       res.send(result)
     })
   } catch (error) {
@@ -54,7 +54,7 @@ router.get('/rank/:id', async (req, res) => {
 router.get('/users', async (req, res) => {
   const query = `SELECT id, username, creation FROM users`
   db.query(query, function (error, result, fields) {
-    if (error) throw error
+    if (error) console.log(error)
     res.send(result)
   })
 })
@@ -63,7 +63,7 @@ router.delete('/user/:id', async (req, res) => {
   try {
     const query = `DELETE FROM users WHERE id = ${req.params.id}`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       res.send(success())
     })
   } catch (error) {

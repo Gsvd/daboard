@@ -35,7 +35,7 @@ function setTokenForUserID (id, token) {
   return new Promise((resolve) => {
     const query = `UPDATE users SET token = '${token}' WHERE id = '${id}' LIMIT 1`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -45,7 +45,7 @@ function getTokenForUserID (id) {
   return new Promise((resolve) => {
     const query = `SELECT id, username, token, rank FROM users WHERE id = '${id}'`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -55,7 +55,7 @@ function getUserByUsernameAndPassword (username, password) {
   return new Promise((resolve) => {
     const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}' LIMIT 1`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -65,7 +65,7 @@ function getPosts () {
   return new Promise((resolve) => {
     const query = 'SELECT * FROM posts ORDER BY id DESC'
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -78,7 +78,7 @@ function addPost (title, content, category, author) {
     content = specialChars(content)
     const query = `INSERT INTO posts(title, content, html, author, category, creation) VALUES('${title}', '${content}', '${converter.makeHtml(content)}', '${author}', '${category}', '${today}')`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -88,7 +88,7 @@ function deletePost (id) {
   return new Promise((resolve) => {
     const query = `DELETE FROM posts WHERE id = ${id}`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -99,7 +99,7 @@ function getPost (id) {
     const query = `SELECT * FROM posts WHERE id = ${id}`
     console.log(query)
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -112,7 +112,7 @@ function updatePost (id, title, content, category, author) {
     content = specialChars(content)
     const query = `UPDATE posts SET title = '${title}', content = '${content}', html = '${converter.makeHtml(content)}', author = '${author}', category = '${category}', creation = '${today}' WHERE id = ${id}`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -122,7 +122,7 @@ function getCategories () {
   return new Promise((resolve) => {
     const query = 'SELECT * FROM categories ORDER BY id ASC'
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -132,7 +132,7 @@ function getRankById (id) {
   return new Promise((resolve) => {
     const query = `SELECT label FROM ranks WHERE id = '${id}'`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
@@ -142,7 +142,7 @@ function getTokenAPIForAddress (address, token) {
   return new Promise((resolve) => {
     const query = `SELECT * FROM auth WHERE token = '${token}' AND addressV4 = '${address}' OR addressV6 = '${address}' LIMIT 1`
     db.query(query, function (error, result, fields) {
-      if (error) throw error
+      if (error) console.log(error)
       resolve(result)
     })
   })
