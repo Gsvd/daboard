@@ -91,6 +91,11 @@ export default {
   font-family: "Roboto-Light";
   src: url("assets/fonts/Roboto-Light.ttf");
 }
+
+strong {
+  font-family: Roboto-Bold;
+}
+
 .icon {
   width: 20px;
   margin: 0 2px 0 2px;
