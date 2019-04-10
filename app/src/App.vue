@@ -58,14 +58,14 @@ export default {
     },
     getActuality () {
         axios
-        .get('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=78c2df573fb3413ea5651bffcbe9a52e')
+        .get('//newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=78c2df573fb3413ea5651bffcbe9a52e')
         .then((response) => {
           this.$store.state.actuality = response['data']['articles'].slice(0, 3)
         })
     },
     refreshMeteo () {
       axios
-        .get('http://api.openweathermap.org/data/2.5/forecast?id=6454924&appid=075bf16ec302d49fd9586cbd8b0b476c&units=metric')
+        .get('//api.openweathermap.org/data/2.5/forecast?id=6454924&appid=075bf16ec302d49fd9586cbd8b0b476c&units=metric')
         .then((response) => {
           this.$store.state.meteo = response['data']['list'].slice(0, 4)
         })

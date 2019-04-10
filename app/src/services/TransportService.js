@@ -16,7 +16,7 @@ export default {
   async getLigneAzur(stop) {
     var date = new Date()
     var dateStr = moment(date).format('YYYY-MM-DD_HH-mm')
-    var api = `http://openservice.cityway.fr/api/timetables/v1/StopPassingTimes/json?key=ODNCA&stopId=${ stop }&refTime=${ dateStr }`
+    var api = `/cityway/api/timetables/v1/StopPassingTimes/json?key=ODNCA&stopId=${ stop }&refTime=${ dateStr }`
     const hours = await fetch(api)
     .then(r => r.json())
     .then(o => o.StopTimetableObj.HourGroup
@@ -29,7 +29,7 @@ export default {
     return hours
   },
   async getTrains() {
-    var api = `https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area%3AOCE%3ASA%3A87756254/departures`
+    var api = `//api.sncf.com/v1/coverage/sncf/stop_areas/stop_area%3AOCE%3ASA%3A87756254/departures`
     const trains = await fetch(api, {
       headers: new Headers({
         'Authorization': '2b4acc8e-5e59-4bf2-803e-fe94feb02852'

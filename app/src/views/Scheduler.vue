@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="frame">
-      <div style="margin-bottom: 10px;">Waiting for SUPINFO API approval...</div>
+      <div style="margin-bottom: 10px;">Waiting for SUPINFO API bug fixing...</div>
       <div><img src="https://media.giphy.com/media/26gJAzOW1B7EdvWRG/giphy.gif" alt="SUPINFO"></div>
     </div>
   </div>
