@@ -3,10 +3,6 @@ html, body {
   padding: 0;
 }
 
-* {
-  color: rgb(40, 40, 40);
-}
-
 .center {
   text-align: center;
 }
@@ -17,4 +13,13 @@ html, body {
 
 .swal-button {
   padding: 0 10px 0 10px !important;
+}
+
+strong {
+  font-family: Roboto-Bold;
+}
+
+.icon {
+  width: 20px;
+  margin: 0 2px 0 2px;
 }

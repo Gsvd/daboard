@@ -79,27 +79,22 @@ export default {
   font-family: "Roboto";
   src: url("assets/fonts/Roboto-Regular.ttf");
 }
+
 @font-face {
   font-family: "Roboto-Bold";
   src: url("assets/fonts/Roboto-Bold.ttf");
 }
+
 @font-face {
   font-family: "Roboto-Thin";
   src: url("assets/fonts/Roboto-Thin.ttf");
 }
+
 @font-face {
   font-family: "Roboto-Light";
   src: url("assets/fonts/Roboto-Light.ttf");
 }
 
-strong {
-  font-family: Roboto-Bold;
-}
-
-.icon {
-  width: 20px;
-  margin: 0 2px 0 2px;
-}
 #app {
   display: flex;
   flex-flow: row;
