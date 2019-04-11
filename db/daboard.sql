@@ -13,7 +13,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `daboard`
 --
-CREATE DATABASE IF NOT EXISTS `daboard` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `daboard` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 USE `daboard`;
 
 -- --------------------------------------------------------
@@ -25,7 +25,7 @@ USE `daboard`;
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `value` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categories`
@@ -50,7 +50,7 @@ CREATE TABLE `posts` (
   `author` varchar(255) NOT NULL,
   `category` varchar(16) NOT NULL,
   `creation` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `posts` (
 CREATE TABLE `ranks` (
   `id` int(11) NOT NULL,
   `label` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ranks`
@@ -84,7 +84,7 @@ CREATE TABLE `users` (
   `token` text,
   `rank` tinyint(4) NOT NULL,
   `creation` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
