@@ -72,7 +72,8 @@ function getPosts () {
 }
 
 function addPost (title, content, category, author) {
-  const converter = new showdown.Converter()
+  const converter = new showdown.Converter({emoji: true})
+  converter.setFlavor('github')
   return new Promise((resolve) => {
     let today = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     content = specialChars(content)
@@ -106,7 +107,8 @@ function getPost (id) {
 }
 
 function updatePost (id, title, content, category, author) {
-  const converter = new showdown.Converter()
+  const converter = new showdown.Converter({emoji: true})
+  converter.setFlavor('github')
   return new Promise((resolve) => {
     let today = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     content = specialChars(content)
