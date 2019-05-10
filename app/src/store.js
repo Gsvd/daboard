@@ -7,12 +7,15 @@ export default new Vuex.Store({
   state: {
     logged: false,
     rotation: false,
-    timeRotation: 15000,
+    timeRotation: 30000,
     username: '',
     rank: '',
     magnan: [],
     airport: [],
-    trains: [],
+    trains: {
+      stop_name: "",
+      next: []
+    },
     meteo: [],
     actuality: []
   },

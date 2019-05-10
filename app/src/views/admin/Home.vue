@@ -8,6 +8,9 @@
       <router-link to="/admin/users" class="adminChoice" style="background: #feca57" v-if="this.$store.getters.isAdmin">
         <div class="contentChoice">Users</div>
       </router-link>
+      <router-link to="/admin/configuration" class="adminChoice" style="background: #1abc9c" v-if="this.$store.getters.isAdmin">
+        <div class="contentChoice">Configuration</div>
+      </router-link>
     </div>
   </div>
 </template>

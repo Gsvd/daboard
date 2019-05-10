@@ -10,6 +10,7 @@ import { connectByToken, logout } from '@/utils/security.js'
 import TransportService from '@/services/TransportService'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
+import config from '../daboard.config.json'
 
 export default {
   name: 'App',
@@ -53,19 +54,28 @@ export default {
     },
     getTrains () {
       TransportService.getTrains().then((response) => {
-        this.$store.state.trains = response
+        this.$store.state.trains.next = response
+      })
+      axios
+      .get(`//api.sncf.com/v1/coverage/sncf/stop_areas/${ config.sncf.stop }`, {
+        headers: {
+          'Authorization': config.sncf.api_key
+        }
+      })
+      .then((response) => {
+        this.$store.state.trains.stop_name = response['data']['stop_areas'][0]["name"]
       })
     },
     getActuality () {
         axios
-        .get('//newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=78c2df573fb3413ea5651bffcbe9a52e')
+        .get(`//newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${ config.actuality.api_key }`)
         .then((response) => {
           this.$store.state.actuality = response['data']['articles'].slice(0, 3)
         })
     },
     refreshMeteo () {
       axios
-        .get('//api.openweathermap.org/data/2.5/forecast?id=6454924&appid=075bf16ec302d49fd9586cbd8b0b476c&units=metric')
+        .get(`//api.openweathermap.org/data/2.5/forecast?id=${ config.weather.city_id }&appid=${ config.weather.api_key }&units=metric`)
         .then((response) => {
           this.$store.state.meteo = response['data']['list'].slice(0, 4)
         })

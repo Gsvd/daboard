@@ -1,0 +1,13 @@
+{
+  "sncf": {
+    "api_key": "2b4acc8e-5e59-4bf2-803e-fe94feb02852",
+    "stop": "stop_area:OCE:SA:87756254"
+  },
+  "weather": {
+    "api_key": "075bf16ec302d49fd9586cbd8b0b476c",
+    "city_id": "6454924"
+  },
+  "actuality": {
+    "api_key": "78c2df573fb3413ea5651bffcbe9a52e"
+  }
+}

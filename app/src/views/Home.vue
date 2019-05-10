@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="item-block">
-          <div class="item-title">SNCF Saint Augustin</div>
+          <div class="item-title">{{ this.$store.state.trains.stop_name || "Undefined" }}</div>
           <div class="content-block">
             <div class="side">
               <div class="entry">
@@ -61,11 +61,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-if="this.$store.state.trains.length <= 0">
+                    <tr v-if="this.$store.state.trains.next.length <= 0">
                       <td><img src="@/assets/images/meh.svg" class="icon"></td>
                       <td><img src="@/assets/images/meh.svg" class="icon"></td>
                     </tr>
-                    <tr v-else v-for="(train, index) in this.$store.state.trains" :key="index">
+                    <tr v-else v-for="(train, index) in this.$store.state.trains.next" :key="index">
                       <td>{{ train[0] }}</td>
                       <td v-if="train[2] > 0"><strike>{{ train[1] }}</strike> - {{ train[3] }}</td>
                       <td v-else>{{ train[1] }}</td>
@@ -110,6 +110,7 @@
 
 <script>
 import { appenum } from '@/utils/enum.js'
+import config from '../../daboard.config.json'
 
 export default {
   name: 'home',
