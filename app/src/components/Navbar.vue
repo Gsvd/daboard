@@ -32,7 +32,7 @@
         <img src="/images/user.svg" class="icon"> Guillaume Sivade
       </div>
       <div>
-        Made with <img src="@/assets/images/heart.svg" class="icon"> in Nice, France <img src="@/assets/images/sun.svg" class="icon">
+        Made with <img src="@/assets/images/heart.svg" class="icon"> in Nice, France <img src="@/assets/images/sun.svg" class="icon"> v{{ this.version }}
       </div>
     </div>
   </div>
@@ -40,11 +40,13 @@
 
 <script>
 import moment from 'moment'
+import { version } from '../../package.json'
 
 export default {
   name: 'Navbar',
   data: () => ({
-    time: ''
+    time: '',
+    version: version
   }),
   created () {
     this.updateTime()

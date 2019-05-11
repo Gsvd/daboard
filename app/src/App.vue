@@ -10,7 +10,7 @@ import { connectByToken, logout } from '@/utils/security.js'
 import TransportService from '@/services/TransportService'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
-import config from '../daboard.config.json'
+import config from '@/config/daboard.config.json'
 
 export default {
   name: 'App',

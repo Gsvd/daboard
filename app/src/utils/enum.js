@@ -11,6 +11,7 @@ export const appenum = {
   LOGGED_IN: 'Logged in',
   LOGGED_OUT: 'Logged out',
   ACCESS_DENIED: 'Access denied',
+  UPDATE_AVAILABLE: 'An update is available!',
 
   //COLORS
   COLOR_SUCCESS: '#2ecc71',

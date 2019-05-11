@@ -1,5 +1,5 @@
 import moment from 'moment'
-import config from '../../daboard.config.json'
+import config from '@/config/daboard.config.json'
 
 function flat(l, o = []) {
   for (const c of l) {
