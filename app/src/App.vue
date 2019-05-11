@@ -27,28 +27,25 @@ export default {
       this.getTrains()
       this.refreshMeteo()
       this.getActuality()
-      //EVERY MINUTE
       setInterval(() => {
         this.getMagnan()
         this.getAirport()
         this.getTrains()
-      }, 60000)
-      //5 MINUTES
+      }, config.sncf.refresh_ms)
       setInterval(() => {
         this.getActuality()
-      }, 300000)
-      //30 MINUTES
+      }, config.actuality.refresh_ms)
       setInterval(() => {
         this.refreshMeteo()
-      }, 1800000)
+      }, config.weather.refresh_ms)
     },
     getMagnan () {
-      TransportService.getLigneAzur(32253).then((response) => {
+      TransportService.getCityway(config.cityway.stop_ids[0]).then((response) => {
         this.$store.state.magnan = response
       })
     },
     getAirport () {
-      TransportService.getLigneAzur(32256).then((response) => {
+      TransportService.getCityway(config.cityway.stop_ids[1]).then((response) => {
         this.$store.state.airport = response
       })
     },
@@ -57,7 +54,7 @@ export default {
         this.$store.state.trains.next = response
       })
       axios
-      .get(`//api.sncf.com/v1/coverage/sncf/stop_areas/${ config.sncf.stop }`, {
+      .get(process.env.VUE_APP_API_SNCF_URL.replace('{STOP_ID}', config.sncf.stop_id), {
         headers: {
           'Authorization': config.sncf.api_key
         }
@@ -68,14 +65,14 @@ export default {
     },
     getActuality () {
         axios
-        .get(`//newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${ config.actuality.api_key }`)
+        .get(process.env.VUE_APP_API_ACTUALITY_URL.replace('{API_KEY}', config.actuality.api_key))
         .then((response) => {
           this.$store.state.actuality = response['data']['articles'].slice(0, 3)
         })
     },
     refreshMeteo () {
       axios
-        .get(`//api.openweathermap.org/data/2.5/forecast?id=${ config.weather.city_id }&appid=${ config.weather.api_key }&units=metric`)
+        .get(process.env.VUE_APP_API_WEATHER_URL.replace('{CITY_ID}', config.weather.city_id).replace('{API_KEY}', config.weather.api_key))
         .then((response) => {
           this.$store.state.meteo = response['data']['list'].slice(0, 4)
         })

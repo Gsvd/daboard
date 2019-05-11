@@ -14,10 +14,10 @@ function flat(l, o = []) {
 }
 
 export default {
-  async getLigneAzur(stop) {
+  async getCityway(stop) {
     var date = new Date()
     var dateStr = moment(date).format('YYYY-MM-DD_HH-mm')
-    var api = `/cityway/api/timetables/v1/StopPassingTimes/json?key=ODNCA&stopId=${ stop }&refTime=${ dateStr }`
+    var api = process.env.VUE_APP_API_CITYWAY_URL.replace('{STOP_ID}', stop).replace('{DATE}', dateStr)
     const hours = await fetch(api)
     .then(r => r.json())
     .then(o => o.StopTimetableObj.HourGroup
@@ -30,7 +30,7 @@ export default {
     return hours
   },
   async getTrains() {
-    var api = `//api.sncf.com/v1/coverage/sncf/stop_areas/${ config.sncf.stop }/departures`
+    var api = process.env.VUE_APP_API_SNCF_DEPARTURES_URL.replace('{STOP_ID}', config.sncf.stop_id)
     const trains = await fetch(api, {
       headers: new Headers({
         'Authorization': config.sncf.api_key
