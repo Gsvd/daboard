@@ -1,5 +1,4 @@
 import moment from 'moment'
-import config from '@/config/daboard.config.json'
 
 function flat(l, o = []) {
   for (const c of l) {
@@ -29,11 +28,11 @@ export default {
     )
     return hours
   },
-  async getTrains() {
-    var api = process.env.VUE_APP_API_SNCF_DEPARTURES_URL.replace('{STOP_ID}', config.sncf.stop_id)
+  async getTrains(api_key, stop_id) {
+    var api = process.env.VUE_APP_API_SNCF_DEPARTURES_URL.replace('{STOP_ID}', stop_id)
     const trains = await fetch(api, {
       headers: new Headers({
-        'Authorization': config.sncf.api_key
+        'Authorization': api_key
       })
     })
     .then(r => r.json()

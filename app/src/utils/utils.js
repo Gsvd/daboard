@@ -2,6 +2,8 @@ import Toastify from 'toastify-js'
 import { version } from '../../package.json'
 import axios from 'axios'
 import { appenum } from '@/utils/enum.js'
+import store from '../store'
+import AdminService from '@/services/AdminService'
 
 export function showToast(text, color) {
   Toastify({
@@ -38,4 +40,12 @@ export function greeting() {
     return 'Good afternoon'
   else
     return 'Good evening'
+}
+
+export function loadConfiguration() {
+  return new Promise((res) => {
+    AdminService.getConfiguration().then((response) => {
+      res(store.state.config = response.data)
+    })
+  })
 }

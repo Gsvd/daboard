@@ -110,7 +110,6 @@
 
 <script>
 import { appenum } from '@/utils/enum.js'
-import config from '@/config/daboard.config.json'
 import { updateAvailable } from '@/utils/utils.js'
 
 export default {

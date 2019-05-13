@@ -32,5 +32,13 @@ export default {
   },
   deleteUser (id) {
     return Api().delete(`/admin/user/${ id }`)
+  },
+  getConfiguration () {
+    return Api().get('/admin/configuration')
+  },
+  setConfiguration (config) {
+    return Api().post('/admin/configuration', {
+      config
+    })
   }
 }

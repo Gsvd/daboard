@@ -2,6 +2,7 @@ const express = require('express')
 const uuidv4 = require('uuid/v4')
 const router = express.Router()
 const { getRankById, getUserByUsernameAndPassword, getCategories, success, failure, setTokenForUserID, getTokenForUserID } = require('../utils.js')
+const fs = require('fs')
 
 const db = require('../db')
 
@@ -117,6 +118,24 @@ router.get('/logged/user/:id/token/:token', async (req, res) => {
     } else {
       res.send(failure())
     }
+  }
+})
+
+router.get('/configuration', async (req, res) => {
+  fs.readFile('config/daboard.config.json', 'utf8', (err, data) => {
+    if (err) throw err
+    res.send(JSON.parse(data))
+  })
+})
+
+router.post('/configuration', async (req, res) => {
+  try {
+    fs.writeFile('config/daboard.config.json', JSON.stringify(req.body.config), (err) => {
+      if (err) throw err
+      res.send(success(undefined, {}))
+    })
+  } catch (err) {
+    res.send(failure())
   }
 })
 

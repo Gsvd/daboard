@@ -10,6 +10,7 @@ import AdminNews from './views/admin/News.vue'
 import AdminHome from './views/admin/Home.vue'
 import AdminLogin from './views/admin/Login.vue'
 import AdminUsers from './views/admin/Users.vue'
+import AdminConfiguration from './views/admin/Configuration.vue'
 import PageNotFound from './views/errors/404.vue'
 
 Vue.use(Router)
@@ -55,6 +56,11 @@ const router = new Router({
         {
           path: 'users',
           component: AdminUsers,
+          meta: { requiresAuth: true, requiresAdmin: true }
+        },
+        {
+          path: 'configuration',
+          component: AdminConfiguration,
           meta: { requiresAuth: true, requiresAdmin: true }
         }
       ]

@@ -7,10 +7,10 @@
 
 <script>
 import { connectByToken, logout } from '@/utils/security.js'
+import { loadConfiguration } from '@/utils/utils.js'
 import TransportService from '@/services/TransportService'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
-import config from '@/config/daboard.config.json'
 
 export default {
   name: 'App',
@@ -18,45 +18,47 @@ export default {
     Navbar
   },
   mounted () {
-    this.startServices()
+    loadConfiguration().then(() => {
+      this.startServices()
+    })
   },
   methods: {
     startServices () {
       this.getMagnan()
       this.getAirport()
-      this.getTrains()
+      this.getTrains(this.$store.state.config.sncf.api_key, this.$store.state.config.sncf.stop_id)
       this.refreshMeteo()
       this.getActuality()
       setInterval(() => {
         this.getMagnan()
         this.getAirport()
-        this.getTrains()
-      }, config.sncf.refresh_ms)
+        this.getTrains(this.$store.state.config.sncf.api_key, this.$store.state.config.sncf.stop_id)
+      }, this.$store.state.config.sncf.refresh_ms)
       setInterval(() => {
         this.getActuality()
-      }, config.actuality.refresh_ms)
+      }, this.$store.state.config.actuality.refresh_ms)
       setInterval(() => {
         this.refreshMeteo()
-      }, config.weather.refresh_ms)
+      }, this.$store.state.config.weather.refresh_ms)
     },
     getMagnan () {
-      TransportService.getCityway(config.cityway.stop_ids[0]).then((response) => {
+      TransportService.getCityway(this.$store.state.config.cityway.stop_ids[0]).then((response) => {
         this.$store.state.magnan = response
       })
     },
     getAirport () {
-      TransportService.getCityway(config.cityway.stop_ids[1]).then((response) => {
+      TransportService.getCityway(this.$store.state.config.cityway.stop_ids[1]).then((response) => {
         this.$store.state.airport = response
       })
     },
-    getTrains () {
-      TransportService.getTrains().then((response) => {
+    getTrains (api_key, stop_id) {
+      TransportService.getTrains(api_key, stop_id).then((response) => {
         this.$store.state.trains.next = response
       })
       axios
-      .get(process.env.VUE_APP_API_SNCF_URL.replace('{STOP_ID}', config.sncf.stop_id), {
+      .get(process.env.VUE_APP_API_SNCF_URL.replace('{STOP_ID}', this.$store.state.config.sncf.stop_id), {
         headers: {
-          'Authorization': config.sncf.api_key
+          'Authorization': this.$store.state.config.sncf.api_key
         }
       })
       .then((response) => {
@@ -65,14 +67,14 @@ export default {
     },
     getActuality () {
         axios
-        .get(process.env.VUE_APP_API_ACTUALITY_URL.replace('{API_KEY}', config.actuality.api_key))
+        .get(process.env.VUE_APP_API_ACTUALITY_URL.replace('{API_KEY}', this.$store.state.config.actuality.api_key))
         .then((response) => {
           this.$store.state.actuality = response['data']['articles'].slice(0, 3)
         })
     },
     refreshMeteo () {
       axios
-        .get(process.env.VUE_APP_API_WEATHER_URL.replace('{CITY_ID}', config.weather.city_id).replace('{API_KEY}', config.weather.api_key))
+        .get(process.env.VUE_APP_API_WEATHER_URL.replace('{CITY_ID}', this.$store.state.config.weather.city_id).replace('{API_KEY}', this.$store.state.config.weather.api_key))
         .then((response) => {
           this.$store.state.meteo = response['data']['list'].slice(0, 4)
         })
