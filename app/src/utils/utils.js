@@ -24,7 +24,6 @@ export function updateAvailable() {
     .get('https://raw.githubusercontent.com/Velkow/daboard/master/app/package.json')
     .then((response) => {
       let lastVersion = response.data.version
-      console.log(version, lastVersion)
       if (lastVersion !== null && version !== lastVersion) {
         showStickyToast(appenum.UPDATE_AVAILABLE + ` - v${ lastVersion }`)
       }

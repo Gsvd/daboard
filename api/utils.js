@@ -98,7 +98,6 @@ function deletePost (id) {
 function getPost (id) {
   return new Promise((resolve) => {
     const query = `SELECT * FROM posts WHERE id = ${id}`
-    console.log(query)
     db.query(query, function (error, result, fields) {
       if (error) console.log(error)
       resolve(result)

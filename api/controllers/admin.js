@@ -20,7 +20,6 @@ router.put('/user', async (req, res) => {
   const user = req.body.user
   try {
     const query = `INSERT INTO users(username, password, rank, creation) VALUES('${user.username}', '${user.hashed}', '${user.rank}', NOW())`
-    console.log(query)
     db.query(query, function (error, result, fields) {
       if (error) console.log(error)
       res.send(success())
