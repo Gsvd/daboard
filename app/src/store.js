@@ -16,7 +16,10 @@ export default new Vuex.Store({
       stop_name: "",
       next: []
     },
-    meteo: [],
+    meteo: {
+      city: "",
+      data: []
+    },
     actuality: []
   },
   mutations: {

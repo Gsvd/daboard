@@ -76,7 +76,8 @@ export default {
       axios
         .get(process.env.VUE_APP_API_WEATHER_URL.replace('{CITY_ID}', this.$store.state.config.weather.city_id).replace('{API_KEY}', this.$store.state.config.weather.api_key))
         .then((response) => {
-          this.$store.state.meteo = response['data']['list'].slice(0, 4)
+          this.$store.state.meteo.city = response.data.city.name
+          this.$store.state.meteo.data = response['data']['list'].slice(0, 4)
         })
     }
   }

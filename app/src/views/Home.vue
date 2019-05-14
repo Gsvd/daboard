@@ -79,8 +79,8 @@
           </div>
         </div>
         <div class="item-block">
-          <div class="item-title">Weather</div>
-          <div class="meteo" v-for="element in this.$store.state.meteo" :key="element.dt">
+          <div class="item-title">{{ this.$store.state.meteo.city || "Undefined" }}</div>
+          <div class="meteo" v-for="element in this.$store.state.meteo.data" :key="element.dt">
             <div class="date">
               {{ element.dt_txt.slice(11) }}
             </div>
