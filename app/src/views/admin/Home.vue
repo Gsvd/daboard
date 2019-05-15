@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">{{ this.greeting }},&nbsp;{{ `${ this.$store.state.username } (${ rank })` }}</div>
+    <div class="title">{{ this.greeting }},&nbsp;{{ `${ this.$store.state.username }` }}</div>
     <div class="adminChoiceBlock">
       <router-link to="/admin/news" class="adminChoice" style="background: #1289A7">
         <div class="contentChoice">News</div>
@@ -21,14 +21,10 @@ import AdminService from '@/services/AdminService'
 
 export default {
   data: () => ({
-    greeting: '',
-    rank: null
+    greeting: ''
   }),
   created () {
     this.greeting = greeting()
-    AdminService.getRankById(this.$store.state.rank).then((response) => {
-      this.rank = response['data']['label']
-    })
   }
 }
 </script>

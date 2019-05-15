@@ -40,7 +40,7 @@
             Manage
         </div>
         <div class="twelve columns newsRow" v-for="(post, index) in posts" v-bind:key="index" @click="managePost(post.id)">
-            {{ post.title.substring(0, 20) + ' [...]' }}
+            {{ post.title.substring(0, 25).trim() + '...' }}
         </div>
     </div>
   </div>
