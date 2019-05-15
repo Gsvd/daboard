@@ -77,6 +77,7 @@ function addPost (title, content, category, author) {
   return new Promise((resolve) => {
     let today = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     content = specialChars(content)
+    title = specialChars(title)
     const query = `INSERT INTO posts(title, content, html, author, category, creation) VALUES('${title}', '${content}', '${converter.makeHtml(content)}', '${author}', '${category}', '${today}')`
     db.query(query, function (error, result, fields) {
       if (error) console.log(error)

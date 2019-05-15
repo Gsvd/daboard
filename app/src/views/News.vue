@@ -4,9 +4,7 @@
       <div class="newsblock" v-for="(post, index) in posts" v-bind:key="index">
         <div class="header">
           <div class="row">
-            <div class="ten columns title">
-              {{ post.title }}
-            </div>
+            <div class="ten columns title" v-html="post.title"></div>
             <div class="two columns category">
               {{ post.category }}
             </div>
