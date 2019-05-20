@@ -3,6 +3,10 @@ html, body {
   padding: 0;
 }
 
+.newsblock .text img {
+  max-width: 100%;
+}
+
 .center {
   text-align: center;
 }
