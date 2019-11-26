@@ -12,6 +12,9 @@ export const appenum = {
   LOGGED_OUT: 'Logged out',
   ACCESS_DENIED: 'Access denied',
   UPDATE_AVAILABLE: 'An update is available!',
+  GOOD_MORNING: 'Good morning',
+  GOOD_AFTERNOON: 'Good afternoon',
+  GOOD_EVENING: 'Good evening',
 
   //COLORS
   COLOR_SUCCESS: '#2ecc71',

@@ -35,11 +35,11 @@ export function updateAvailable() {
 export function greeting() {
   let hour = new Date().getHours()
   if (hour < 12)
-    return 'Good morning'
+    return appenum.GOOD_MORNING
   else if (hour < 18)
-    return 'Good afternoon'
+    return appenum.GOOD_AFTERNOON
   else
-    return 'Good evening'
+    return appenum.GOOD_EVENING
 }
 
 export function loadConfiguration() {

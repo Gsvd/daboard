@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Navbar v-if="!this.$route.path.includes('error')"/>
-    <router-view style="margin-left: 200px;"/>
+    <Navbar v-if="!this.$route.path.includes('error')" />
+    <router-view style="margin-left: 200px;" />
   </div>
 </template>
 
@@ -56,17 +56,17 @@ export default {
         this.$store.state.trains.next = response
       })
       axios
-      .get(process.env.VUE_APP_API_SNCF_URL.replace('{STOP_ID}', this.$store.state.config.sncf.stop_id), {
-        headers: {
-          'Authorization': this.$store.state.config.sncf.api_key
-        }
-      })
-      .then((response) => {
-        this.$store.state.trains.stop_name = response['data']['stop_areas'][0]["name"]
-      })
+        .get(process.env.VUE_APP_API_SNCF_URL.replace('{STOP_ID}', this.$store.state.config.sncf.stop_id), {
+          headers: {
+            'Authorization': this.$store.state.config.sncf.api_key
+          }
+        })
+        .then((response) => {
+          this.$store.state.trains.stop_name = response['data']['stop_areas'][0]["name"]
+        })
     },
     getActuality () {
-        axios
+      axios
         .get(process.env.VUE_APP_API_ACTUALITY_URL.replace('{API_KEY}', this.$store.state.config.actuality.api_key))
         .then((response) => {
           this.$store.state.actuality = response['data']['articles'].slice(0, 3)
