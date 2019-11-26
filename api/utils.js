@@ -63,7 +63,7 @@ function getUserByUsernameAndPassword (username, password) {
 
 function getPosts () {
   return new Promise((resolve) => {
-    const query = 'SELECT * FROM posts ORDER BY id DESC'
+    const query = 'SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.author = users.id ORDER BY posts.id DESC'
     db.query(query, function (error, result, fields) {
       if (error) console.log(error)
       resolve(result)
@@ -72,7 +72,7 @@ function getPosts () {
 }
 
 function addPost (title, content, category, author) {
-  const converter = new showdown.Converter({emoji: true})
+  const converter = new showdown.Converter({ emoji: true })
   converter.setFlavor('github')
   return new Promise((resolve) => {
     let today = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
@@ -107,7 +107,7 @@ function getPost (id) {
 }
 
 function updatePost (id, title, content, category, author) {
-  const converter = new showdown.Converter({emoji: true})
+  const converter = new showdown.Converter({ emoji: true })
   converter.setFlavor('github')
   return new Promise((resolve) => {
     let today = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')

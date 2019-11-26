@@ -72,7 +72,7 @@ export default {
     async submitNews () {
         //UDPATE
         if (this.editid !== undefined && this.editid !== appenum.EMPTY) {
-            const response = await NewsService.update({ id: this.editid, title: this.title, content: this.content, category: this.category, author: this.$store.state.username })
+            const response = await NewsService.update({ id: this.editid, title: this.title, content: this.content, category: this.category, author: this.$store.state.id })
             let success = response['data']['success']
             if (success) {
                 showToast(appenum.UPDATED, appenum.COLOR_SUCCESS)
@@ -83,7 +83,7 @@ export default {
         }
         //INSERT
         else {
-            const response = await NewsService.add({ title: this.title, content: this.content, category: this.category, author: this.$store.state.username })
+            const response = await NewsService.add({ title: this.title, content: this.content, category: this.category, author: this.$store.state.id })
             let success = response['data']['success']
             let answer = response['data']['answer']
             if (success) {

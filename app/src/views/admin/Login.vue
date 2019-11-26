@@ -39,6 +39,7 @@ export default {
       if (result) {
         showToast(appenum.LOGGED_IN, appenum.COLOR_SUCCESS)
         this.$store.state.logged = result
+        this.$store.state.id = localStorage.getItem('id')
         this.$store.state.username = localStorage.getItem('username')
         this.$store.state.rank = localStorage.getItem('rank')
         this.$router.push({ path: '/admin' })
