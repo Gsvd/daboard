@@ -27,5 +27,7 @@ export const appenum = {
   THERMOMETER_COLD: 'cold.svg',
 
   //UTILS
-  EMPTY: ''
+  EMPTY: '',
+  TRAM_AIRPORT: 80993,
+  TRAM_CADAM: 80994
 }

@@ -3,14 +3,14 @@
     <div class="frame">
       <div class="block-content">
         <div class="item-block">
-          <div class="item-title">TRAM L2 Parc Phoenix</div>
+          <div class="item-title">TRAM L2</div>
           <div class="content-block">
             <div class="side">
               <div class="entry">
                 <table>
                   <thead>
                     <tr>
-                      <td class="title-home">Magnan</td>
+                      <td class="title-home">Port Lympia</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -30,7 +30,7 @@
                 <table>
                   <thead>
                     <tr>
-                      <td class="title-home">Aéroport</td>
+                      <td class="title-home"><span class="direction-0">Aéroport</span> / <span class="direction-1">CADAM</span></td>
                     </tr>
                   </thead>
                   <tbody>
@@ -38,8 +38,8 @@
                       <td><img src="@/assets/images/meh.svg" class="icon"></td>
                     </tr>
                     <tr v-else v-for="(tram, index) in this.$store.state.airport" :key="index">
-                      <td v-if="tram[1] > 0">{{ tram[1] }} {{ getMinutePluralOrSingular(tram[1]) }}</td>
-                      <td v-else>Imminent</td>
+                      <td v-if="tram[1] > 0" v-bind:class="directionObject(tram[2])">{{ tram[1] }} {{ getMinutePluralOrSingular(tram[1]) }}</td>
+                      <td v-else  v-bind:class="directionObject(tram[2])">Imminent</td>
                     </tr>
                   </tbody>
                 </table>
@@ -125,6 +125,12 @@ export default {
     }
   },
   methods: {
+    directionObject: function (id) {
+      return {
+        'direction-0': id == appenum.TRAM_AIRPORT,
+        'direction-1': id == appenum.TRAM_CADAM
+      }
+    },
     getThermometerByTemperature (temperature) {
       if (temperature < 10) {
         return appenum.THERMOMETER_COLD
@@ -142,6 +148,14 @@ export default {
 </script>
 
 <style lang="scss">
+.direction-0 {
+  color: #e74c3c;
+}
+
+.direction-1 {
+  color: #3498db;
+}
+
 .title-home {
 
   text-align: center;

@@ -24,7 +24,7 @@ export default {
       .map(hour => hour.VehicleJourneyAtStop))
     .then(flat)
     .then(o => o.slice(0, 7)
-      .map(t => [t.line.directionName, moment(t.passingTime.formatedHour, 'HH:mm').diff(date, 'minutes')])
+      .map(t => [t.line.directionName, moment(t.passingTime.formatedHour, 'HH:mm').diff(date, 'minutes'), t.journeyPattern.id])
     )
     return hours
   },
