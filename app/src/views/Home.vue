@@ -100,6 +100,7 @@
               <div class="actuality-title">{{ actuality.title }}</div>
               <div class="actuality-description">{{ actuality.description }}</div>
               <div class="actuality-readmore"><a :href="actuality.url" target="_blank">{{ actuality.url }}</a></div>
+              <div class="actuality-date">{{ new Date(actuality.publishedAt).toLocaleString() }}</div>
             </div>
           </div>
         </div>
@@ -183,6 +184,10 @@ export default {
     }
     .actuality-readmore {
       margin-top: 25px;
+      font-family: Roboto-Light;
+      font-size: 12px;
+    }
+    .actuality-date {
       font-family: Roboto-Light;
       font-size: 12px;
     }
